@@ -7,379 +7,890 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Bebas+Neue&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --blue: #2B6991;
-    --blue-dark: #1e4f6b;
-    --blue-deep: #163a4f;
-    --blue-light: #3d87b8;
-    --blue-pale: #eaf3f9;
-    --gold: #D7B748;
-    --gold-light: #e8cc6a;
-    --gold-dark: #b8952e;
-    --white: #FAFCFE;
-    --bg-base: #F0F5F9;
-    --bg-card: #FFFFFF;
-    --bg-dark: #1e3347;
-    --bg-darker: #162839;
-    --bg-section: #E8F1F8;
-    --border: rgba(43,105,145,0.15);
-    --border-light: rgba(43,105,145,0.08);
-    --shadow: 0 4px 20px rgba(43,105,145,0.12);
-    --shadow-lg: 0 12px 40px rgba(43,105,145,0.18);
-    --text-dark: #1a2e3d;
-    --text-mid: #3a5a72;
-    --text-light: #6a8fa8;
-    --radius: 16px;
-    --radius-sm: 10px;
-    --radius-lg: 24px;
-    --radius-pill: 50px;
-  }
+/* ── TOKENS ── */
+:root {
+  --blue: #2B6991;
+  --blue-dark: #1e4f6b;
+  --blue-light: #3d87b8;
+  --blue-pale: #eaf3f9;
+  --gold: #D7B748;
+  --gold-light: #e8cc6a;
+  --bg-base: #F0F5F9;
+  --bg-section: #E8F1F8;
+  --bg-dark: #1e3347;
+  --bg-darker: #162839;
+  --border: rgba(43,105,145,0.15);
+  --border-light: rgba(43,105,145,0.08);
+  --shadow: 0 4px 20px rgba(43,105,145,0.12);
+  --shadow-lg: 0 12px 40px rgba(43,105,145,0.18);
+  --text-dark: #1a2e3d;
+  --text-mid: #3a5a72;
+  --text-light: #6a8fa8;
+  --r: 16px;
+  --rsm: 10px;
+  --rlg: 24px;
+  --rpill: 50px;
+  --brand: #2B6991;
+  --brand-dark: #1e4f6b;
+}
 
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg-base); color: var(--text-dark); font-family: 'Barlow', sans-serif; font-weight: 400; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg-base); color: var(--text-dark); font-family: 'Barlow', sans-serif; font-weight: 400; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
-  /* NAV */
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 0 48px; height: 72px; background: rgba(255,255,255,0.94); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); box-shadow: 0 2px 16px rgba(43,105,145,0.08); transition: all 0.3s; }
-  .nav-logo img { height: 42px; width: auto; object-fit: contain; }
-  .nav-links { display: flex; gap: 32px; list-style: none; }
-  .nav-links a { color: var(--text-mid); text-decoration: none; font-size: 13px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--blue); }
-  .nav-cta { display: flex; align-items: center; gap: 14px; }
-  .nav-phone { color: var(--blue); font-size: 13px; font-weight: 700; text-decoration: none; }
+/* ══════════════════════════════
+   NAV
+══════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  height: 68px;
+  background: var(--brand);
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.2);
+  transition: background 0.3s;
+}
+nav.scrolled { background: var(--brand-dark); }
 
-  .btn-gold { background: var(--gold); color: var(--text-dark); padding: 10px 22px; font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; border-radius: var(--radius-pill); transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 14px rgba(215,183,72,0.35); display: inline-block; }
-  .btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 20px rgba(215,183,72,0.4); }
-  .btn-blue { background: var(--blue); color: #fff; padding: 12px 28px; font-size: 14px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; border-radius: var(--radius-pill); transition: background 0.2s, transform 0.15s, box-shadow 0.2s; box-shadow: 0 4px 16px rgba(43,105,145,0.3); display: inline-block; }
-  .btn-blue:hover { background: var(--blue-light); transform: translateY(-2px); }
-  .btn-outline-white { background: transparent; color: #fff; padding: 12px 28px; font-size: 14px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; border: 2px solid rgba(255,255,255,0.45); cursor: pointer; border-radius: var(--radius-pill); transition: all 0.2s; display: inline-block; }
-  .btn-outline-white:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.7); }
+.nav-inner {
+  max-width: 1280px; margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
+}
 
-  /* HERO */
-  #hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; background: var(--bg-darker); }
-  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 80% 70% at 60% 30%, rgba(43,105,145,0.7) 0%, transparent 65%), linear-gradient(160deg, var(--bg-darker) 0%, var(--bg-dark) 100%); }
-  .hero-grid-lines { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(ellipse 65% 65% at 60% 30%, rgba(0,0,0,0.6) 30%, transparent 75%); }
-  .hero-content { position: relative; z-index: 3; padding: 160px 48px 100px; max-width: 1400px; margin: 0 auto; width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
-  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(215,183,72,0.15); border: 1px solid rgba(215,183,72,0.4); padding: 6px 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-light); border-radius: var(--radius-pill); margin-bottom: 22px; }
-  .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse-dot 2s ease-in-out infinite; }
-  @keyframes pulse-dot { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.5); } }
-  .hero-h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(60px, 6.5vw, 104px); line-height: 0.93; letter-spacing: 0.02em; color: #fff; margin-bottom: 22px; }
-  .hero-h1 .gold { color: var(--gold); }
-  .hero-h1 .sub-word { color: #8bc8e8; font-size: 0.52em; letter-spacing: 0.06em; }
-  .hero-sub { font-size: 17px; font-weight: 300; line-height: 1.75; color: rgba(255,255,255,0.72); max-width: 480px; margin-bottom: 36px; }
-  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-  .hero-stats { display: flex; gap: 28px; margin-top: 52px; padding-top: 36px; border-top: 1px solid rgba(255,255,255,0.12); }
-  .hero-stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 40px; line-height: 1; color: var(--gold); }
-  .hero-stat-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px; }
-  .hero-right { position: relative; }
-  .hero-image-wrap { position: relative; border-radius: var(--radius-lg); overflow: visible; }
-  .hero-image-wrap img { width: 100%; height: 580px; object-fit: cover; object-position: center top; display: block; border-radius: var(--radius-lg); }
-  .hero-image-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 50%, rgba(22,40,57,0.5) 100%); border-radius: var(--radius-lg); }
-  .hero-cert-badge { position: absolute; bottom: 24px; left: -20px; background: #fff; border-radius: var(--radius); padding: 14px 18px; display: flex; align-items: center; gap: 12px; box-shadow: var(--shadow-lg); }
-  .hero-cert-icon { width: 38px; height: 38px; background: var(--gold); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
-  .hero-cert-text strong { display: block; font-size: 13px; font-weight: 700; color: var(--text-dark); }
-  .hero-cert-text span { font-size: 11px; color: var(--text-light); }
-  .hero-wave { position: absolute; bottom: -1px; left: 0; right: 0; z-index: 4; }
+/* Logo */
+.nav-logo { display: flex; align-items: center; flex-shrink: 0; }
+.nav-logo img { height: 38px; width: auto; object-fit: contain; }
 
-  /* MARQUEE */
-  .marquee-bar { background: var(--blue); padding: 13px 0; overflow: hidden; position: relative; z-index: 5; }
-  .marquee-track { display: flex; animation: marquee 28s linear infinite; white-space: nowrap; width: max-content; }
-  .marquee-item { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #fff; padding: 0 30px; display: flex; align-items: center; gap: 14px; }
-  .marquee-item::after { content: '⚡'; color: var(--gold); font-size: 11px; }
-  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+/* Desktop links — only 4 */
+.nav-links-desktop {
+  display: flex; gap: 28px; list-style: none;
+  align-items: center;
+}
+.nav-links-desktop a {
+  color: rgba(255,255,255,0.82); text-decoration: none;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; transition: color 0.2s; white-space: nowrap;
+}
+.nav-links-desktop a:hover { color: var(--gold); }
 
-  /* HELPERS */
-  .container { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
-  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
-  .section-label::before { content: ''; width: 24px; height: 2px; background: var(--gold); flex-shrink: 0; }
-  .section-label.light { color: var(--gold-light); }
-  .section-label.light::before { background: var(--gold); }
-  .section-h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 4.5vw, 64px); line-height: 0.95; letter-spacing: 0.02em; color: var(--text-dark); }
-  .section-h2.light { color: #fff; }
-  .color-divider { height: 4px; background: linear-gradient(90deg, var(--blue), var(--gold), var(--blue-light)); }
+/* Desktop CTA area */
+.nav-cta-desktop {
+  display: flex; align-items: center; gap: 12px; flex-shrink: 0;
+}
+.nav-phone-link {
+  color: var(--gold); font-size: 13px; font-weight: 700;
+  text-decoration: none; white-space: nowrap; letter-spacing: 0.02em;
+}
+.nav-phone-link:hover { opacity: 0.85; }
 
-  /* INTRO */
-  #intro { padding: 100px 0 80px; background: #fff; }
-  .intro-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-  .intro-left .section-h2 { margin-bottom: 24px; }
-  .intro-left p { font-size: 16px; line-height: 1.8; color: var(--text-mid); margin-bottom: 18px; }
-  .intro-left p strong { color: var(--text-dark); font-weight: 600; }
-  .intro-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
-  .tag { background: var(--bg-section); border: 1px solid var(--border); color: var(--blue); font-size: 12px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 14px; border-radius: var(--radius-pill); }
-  .intro-right { position: relative; }
-  .intro-image-stack { position: relative; height: 500px; }
-  .intro-img-main { position: absolute; top: 0; right: 0; width: 80%; height: 360px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); }
-  .intro-img-secondary { position: absolute; bottom: 0; left: 0; width: 52%; height: 240px; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); border: 4px solid #fff; }
-  .intro-accent-box { position: absolute; bottom: 50px; right: 0; background: var(--gold); color: var(--text-dark); padding: 18px 22px; text-align: center; border-radius: var(--radius); box-shadow: 0 8px 24px rgba(215,183,72,0.4); }
-  .intro-accent-num { font-family: 'Bebas Neue', sans-serif; font-size: 44px; line-height: 1; display: block; }
-  .intro-accent-text { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+/* Hamburger button */
+.nav-hamburger {
+  display: none;
+  background: none; border: none; cursor: pointer;
+  flex-direction: column; gap: 5px; padding: 6px;
+  flex-shrink: 0;
+}
+.nav-hamburger span {
+  display: block; width: 24px; height: 2px;
+  background: #fff; border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* SERVICES */
-  #services { padding: 100px 0; background: var(--bg-section); }
-  .services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 52px; }
-  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .service-card { background: #fff; padding: 36px 32px; position: relative; overflow: hidden; border: 1px solid var(--border-light); border-radius: var(--radius-lg); transition: transform 0.3s, box-shadow 0.3s; cursor: default; }
-  .service-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(90deg, var(--blue), var(--gold)); border-radius: var(--radius-lg) var(--radius-lg) 0 0; transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease; }
-  .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
-  .service-card:hover::before { transform: scaleX(1); }
-  .service-num { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 1; color: rgba(43,105,145,0.07); position: absolute; top: 16px; right: 20px; pointer-events: none; }
-  .service-icon { width: 48px; height: 48px; background: var(--blue-pale); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 18px; }
-  .service-title { font-family: 'Barlow Condensed', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-dark); margin-bottom: 10px; }
-  .service-desc { font-size: 14px; line-height: 1.7; color: var(--text-light); }
+/* Mobile drawer */
+.nav-drawer {
+  position: fixed; top: 68px; left: 0; right: 0; bottom: 0;
+  background: var(--brand-dark);
+  z-index: 199;
+  display: flex; flex-direction: column;
+  padding: 32px 24px 40px;
+  gap: 0;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.nav-drawer.open { transform: translateX(0); }
 
-  /* TRANSFORMERS */
-  #transformers { padding: 110px 0; background: var(--bg-dark); position: relative; overflow: hidden; }
-  .transformers-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 65% 80% at 80% 50%, rgba(43,105,145,0.25) 0%, transparent 65%); pointer-events: none; }
-  .transformers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; position: relative; z-index: 1; }
-  .transformers-left .section-h2 { color: #fff; margin-bottom: 22px; }
-  .transformers-left .lead { font-size: 18px; line-height: 1.7; color: rgba(255,255,255,0.88); margin-bottom: 18px; font-weight: 300; }
-  .transformers-left p { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.6); margin-bottom: 14px; }
-  .kva-range { display: flex; align-items: center; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); overflow: hidden; margin: 32px 0; }
-  .kva-item { flex: 1; padding: 18px 20px; text-align: center; border-right: 1px solid rgba(255,255,255,0.08); }
-  .kva-item:last-child { border-right: none; }
-  .kva-num { font-family: 'Bebas Neue', sans-serif; font-size: 34px; color: var(--gold); display: block; line-height: 1; }
-  .kva-label { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 4px; }
-  .transformers-right { position: relative; }
-  .transformers-right img { width: 100%; height: 540px; object-fit: cover; border-radius: var(--radius-lg); display: block; }
-  .transformer-types { position: absolute; left: -24px; top: 50%; transform: translateY(-50%); background: #fff; border-radius: var(--radius); padding: 18px 20px; min-width: 176px; box-shadow: var(--shadow-lg); }
-  .transformer-types h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue); margin-bottom: 12px; padding-bottom: 10px; border-bottom: 2px solid var(--gold); }
-  .transformer-type-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: 13px; color: var(--text-mid); font-weight: 500; }
-  .transformer-type-item::before { content: ''; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+.nav-drawer a {
+  color: rgba(255,255,255,0.85); text-decoration: none;
+  font-size: 20px; font-weight: 700; font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,0.08);
+  display: block; transition: color 0.2s;
+}
+.nav-drawer a:hover { color: var(--gold); }
+.nav-drawer a:last-child { border-bottom: none; }
 
-  /* WHY */
-  #why { padding: 100px 0; background: #fff; }
-  .why-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 72px; align-items: start; }
-  .why-left .section-h2 { margin-bottom: 24px; }
-  .why-left p { font-size: 16px; line-height: 1.8; color: var(--text-mid); margin-bottom: 24px; }
-  .guarantee-box { background: linear-gradient(135deg, var(--blue) 0%, var(--blue-light) 100%); padding: 28px; border-radius: var(--radius); margin-top: 28px; position: relative; overflow: hidden; box-shadow: 0 8px 24px rgba(43,105,145,0.3); }
-  .guarantee-box::after { content: '✓'; position: absolute; right: 16px; bottom: -16px; font-size: 72px; color: rgba(255,255,255,0.1); line-height: 1; font-family: 'Bebas Neue', sans-serif; }
-  .guarantee-box h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: #fff; margin-bottom: 8px; }
-  .guarantee-box p { font-size: 14px; line-height: 1.65; color: rgba(255,255,255,0.82); margin: 0; }
-  .why-items { display: flex; flex-direction: column; }
-  .why-item { display: grid; grid-template-columns: 54px 1fr; gap: 20px; padding: 24px 0; border-bottom: 1px solid var(--border-light); align-items: start; }
-  .why-item:first-child { border-top: 1px solid var(--border-light); }
-  .why-icon-wrap { width: 54px; height: 54px; background: var(--blue-pale); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
-  .why-content h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-dark); margin-bottom: 5px; }
-  .why-content p { font-size: 14px; line-height: 1.7; color: var(--text-light); }
+.nav-drawer-cta {
+  margin-top: 32px; display: flex; flex-direction: column; gap: 12px;
+}
+.nav-drawer-cta a {
+  font-family: 'Barlow', sans-serif; font-size: 15px; font-weight: 700;
+  text-align: center; border-bottom: none !important; padding: 14px !important;
+  border-radius: var(--rpill) !important;
+}
+.nav-drawer-cta .dcta-gold { background: var(--gold); color: var(--text-dark); }
+.nav-drawer-cta .dcta-outline { border: 2px solid rgba(255,255,255,0.4); color: #fff !important; }
 
-  /* PROCESS */
-  #process { padding: 100px 0; background: var(--bg-section); }
-  .process-header { margin-bottom: 60px; }
-  .process-steps { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0; position: relative; }
-  .process-steps::before { content: ''; position: absolute; top: 36px; left: 10%; right: 10%; height: 2px; background: linear-gradient(90deg, var(--blue), var(--gold), var(--blue)); z-index: 0; opacity: 0.3; border-radius: 2px; }
-  .process-step { position: relative; z-index: 1; padding: 0 16px; text-align: center; }
-  .step-num-wrap { width: 72px; height: 72px; background: #fff; border: 3px solid var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 22px; box-shadow: 0 4px 16px rgba(43,105,145,0.15); transition: background 0.3s, border-color 0.3s; }
-  .process-step:hover .step-num-wrap { background: var(--blue); border-color: var(--gold); }
-  .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--blue); transition: color 0.3s; }
-  .process-step:hover .step-num { color: #fff; }
-  .step-title { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-dark); margin-bottom: 8px; }
-  .step-desc { font-size: 13px; line-height: 1.65; color: var(--text-light); }
+/* ══════════════════════════════
+   BUTTONS
+══════════════════════════════ */
+.btn-gold {
+  background: var(--gold); color: var(--text-dark);
+  padding: 11px 24px; font-size: 13px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none;
+  border: none; cursor: pointer; border-radius: var(--rpill);
+  transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(215,183,72,0.4); display: inline-block;
+}
+.btn-gold:hover { background: var(--gold-light); transform: translateY(-2px); }
+.btn-gold-lg { padding: 14px 30px; font-size: 15px; }
 
-  /* TESTIMONIALS */
-  #testimonials { padding: 100px 0; background: var(--bg-dark); position: relative; overflow: hidden; }
-  .testimonials-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 50% 60% at 10% 50%, rgba(43,105,145,0.3) 0%, transparent 60%); pointer-events: none; }
-  .testimonials-grid { display: grid; grid-template-columns: 5fr 7fr; gap: 72px; align-items: start; position: relative; z-index: 1; }
-  .testimonials-left .section-h2 { color: #fff; margin-bottom: 22px; }
-  .testimonials-left p { font-size: 15px; line-height: 1.8; color: rgba(255,255,255,0.62); margin-bottom: 28px; }
-  .rating-summary { display: flex; align-items: center; gap: 16px; padding: 18px 22px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius); margin-top: 28px; }
-  .rating-num { font-family: 'Bebas Neue', sans-serif; font-size: 48px; color: var(--gold); line-height: 1; }
-  .stars { color: var(--gold); font-size: 15px; letter-spacing: 2px; margin-bottom: 3px; }
-  .rating-count { font-size: 12px; color: rgba(255,255,255,0.5); font-weight: 500; }
-  .testimonials-right { display: flex; flex-direction: column; gap: 16px; }
-  .review-card { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius); padding: 26px 28px; transition: background 0.3s; }
-  .review-card:hover { background: rgba(255,255,255,0.1); }
-  .review-card.featured { background: rgba(255,255,255,0.1); border-color: rgba(215,183,72,0.3); }
-  .review-stars { color: var(--gold); font-size: 13px; letter-spacing: 2px; margin-bottom: 12px; }
-  .review-text { font-size: 15px; line-height: 1.75; color: rgba(255,255,255,0.85); margin-bottom: 18px; font-style: italic; }
-  .review-author { display: flex; align-items: center; gap: 10px; }
-  .review-avatar { width: 34px; height: 34px; background: var(--blue); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: #fff; }
-  .review-name { font-size: 13px; font-weight: 700; color: #fff; }
-  .review-meta { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+.btn-blue {
+  background: var(--blue); color: #fff;
+  padding: 12px 28px; font-size: 14px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none;
+  border: none; cursor: pointer; border-radius: var(--rpill);
+  box-shadow: 0 4px 16px rgba(43,105,145,0.3); display: inline-block;
+  transition: background 0.2s, transform 0.15s;
+}
+.btn-blue:hover { background: var(--blue-light); transform: translateY(-2px); }
 
-  /* AREAS */
-  #areas { padding: 80px 0; background: var(--bg-section); }
-  .areas-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
-  .areas-left .section-h2 { margin-bottom: 20px; }
-  .areas-left p { font-size: 15px; line-height: 1.8; color: var(--text-mid); margin-bottom: 28px; }
-  .areas-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
-  .area-item { padding: 11px 0; border-bottom: 1px solid var(--border-light); font-size: 14px; font-weight: 500; color: var(--text-mid); display: flex; align-items: center; gap: 8px; }
-  .area-item::before { content: '→'; color: var(--blue); font-size: 12px; }
-  .areas-right { position: relative; height: 400px; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
-  .areas-right img { width: 100%; height: 100%; object-fit: cover; }
-  .areas-overlay { position: absolute; inset: 0; background: linear-gradient(135deg, rgba(43,105,145,0.8) 0%, rgba(22,40,57,0.5) 100%); display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 40px; }
-  .areas-overlay h3 { font-family: 'Bebas Neue', sans-serif; font-size: 46px; line-height: 1; color: #fff; margin-bottom: 8px; }
-  .areas-overlay p { font-size: 14px; color: var(--gold); font-weight: 600; }
+.btn-outline-white {
+  background: transparent; color: #fff;
+  padding: 12px 28px; font-size: 14px; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none;
+  border: 2px solid rgba(255,255,255,0.45); cursor: pointer;
+  border-radius: var(--rpill); transition: all 0.2s; display: inline-block;
+}
+.btn-outline-white:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.7); }
 
-  /* GALLERY */
-  .gallery-row { display: grid; grid-template-columns: repeat(4, 1fr); height: 200px; overflow: hidden; gap: 4px; }
-  .gallery-row img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s; }
-  .gallery-row img:hover { transform: scale(1.04); }
+/* ══════════════════════════════
+   HERO
+══════════════════════════════ */
+#hero {
+  position: relative; min-height: 100vh;
+  display: flex; align-items: flex-end; overflow: hidden;
+  background: var(--bg-darker);
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 70% at 60% 30%, rgba(43,105,145,0.7) 0%, transparent 65%),
+              linear-gradient(160deg, var(--bg-darker) 0%, var(--bg-dark) 100%);
+}
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 65% 65% at 60% 30%, rgba(0,0,0,0.6) 30%, transparent 75%);
+}
+.hero-content {
+  position: relative; z-index: 3;
+  padding: 140px 24px 80px;
+  max-width: 1280px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+}
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(215,183,72,0.15); border: 1px solid rgba(215,183,72,0.4);
+  padding: 6px 16px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--gold-light); border-radius: var(--rpill);
+  margin-bottom: 20px;
+}
+.hero-badge::before {
+  content:''; width:6px; height:6px; background:var(--gold);
+  border-radius:50%; animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1);} 50%{opacity:0.4;transform:scale(1.5);} }
 
-  /* CTA */
-  #cta { padding: 100px 0; background: var(--blue); position: relative; overflow: hidden; }
-  .cta-bg-pattern { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px); background-size: 40px 40px; }
-  .cta-glow { position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(215,183,72,0.2) 0%, transparent 65%); pointer-events: none; }
-  .cta-content { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 60px; align-items: center; }
-  .cta-content h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 4.5vw, 64px); line-height: 0.95; color: #fff; margin-bottom: 14px; }
-  .cta-content p { font-size: 17px; color: rgba(255,255,255,0.78); line-height: 1.6; max-width: 520px; margin-bottom: 28px; }
-  .cta-right { display: flex; flex-direction: column; gap: 10px; align-items: center; text-align: center; min-width: 240px; }
-  .cta-phone-label { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.65); }
-  .cta-phone { font-family: 'Bebas Neue', sans-serif; font-size: 38px; color: var(--gold); text-decoration: none; line-height: 1; letter-spacing: 0.04em; transition: opacity 0.2s; }
-  .cta-phone:hover { opacity: 0.8; }
-  .cta-phone-sm { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: rgba(255,255,255,0.85); text-decoration: none; line-height: 1; }
+.hero-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 7vw, 104px);
+  line-height: 0.93; letter-spacing: 0.02em; color: #fff; margin-bottom: 20px;
+}
+.hero-h1 .gold { color: var(--gold); }
+.hero-h1 .sub { color: #8bc8e8; font-size: 0.5em; letter-spacing: 0.06em; }
 
-  /* FAQ */
-  #faq { padding: 100px 0; background: #fff; }
-  .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; }
-  .faq-left .section-h2 { margin-bottom: 20px; }
-  .faq-left p { font-size: 15px; line-height: 1.8; color: var(--text-mid); margin-bottom: 28px; }
-  .faq-items { display: flex; flex-direction: column; }
-  .faq-item { border-bottom: 1px solid var(--border-light); overflow: hidden; }
-  .faq-question { width: 100%; background: none; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; padding: 20px 0; text-align: left; gap: 16px; }
-  .faq-q-text { font-family: 'Barlow Condensed', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--text-dark); transition: color 0.2s; }
-  .faq-question:hover .faq-q-text { color: var(--blue); }
-  .faq-toggle { color: var(--blue); font-size: 22px; font-weight: 300; line-height: 1; transition: transform 0.3s; flex-shrink: 0; }
-  .faq-item.open .faq-toggle { transform: rotate(45deg); }
-  .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
-  .faq-item.open .faq-answer { max-height: 300px; }
-  .faq-answer-inner { padding: 0 0 20px; font-size: 14px; line-height: 1.75; color: var(--text-light); }
+.hero-sub {
+  font-size: 16px; font-weight: 300; line-height: 1.75;
+  color: rgba(255,255,255,0.72); max-width: 460px; margin-bottom: 32px;
+}
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
 
-  /* FOOTER */
-  footer { background: var(--bg-darker); border-top: 1px solid rgba(255,255,255,0.06); padding: 60px 0 0; }
-  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 52px; padding-bottom: 48px; }
-  .footer-brand img { height: 46px; width: auto; margin-bottom: 18px; filter: brightness(1.1); }
-  .footer-brand p { font-size: 14px; line-height: 1.7; color: rgba(255,255,255,0.5); max-width: 270px; margin-bottom: 20px; }
-  .footer-license { font-size: 12px; color: var(--gold); font-weight: 600; letter-spacing: 0.06em; }
-  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: 18px; padding-bottom: 8px; border-bottom: 2px solid var(--gold); display: inline-block; }
-  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-  .footer-links a { font-size: 14px; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
-  .footer-links a:hover { color: var(--gold); }
-  .footer-contact-items { display: flex; flex-direction: column; gap: 14px; }
-  .footer-contact-item { display: flex; flex-direction: column; gap: 2px; }
-  .footer-contact-label { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); }
-  .footer-contact-value { font-size: 14px; color: rgba(255,255,255,0.6); }
-  .footer-contact-value a { color: rgba(255,255,255,0.6); text-decoration: none; transition: color 0.2s; }
-  .footer-contact-value a:hover { color: #fff; }
-  .footer-bottom { border-top: 1px solid rgba(255,255,255,0.06); padding: 20px 0; display: flex; justify-content: space-between; align-items: center; }
-  .footer-copy { font-size: 12px; color: rgba(255,255,255,0.35); }
-  .footer-social { display: flex; gap: 12px; }
-  .footer-social a { width: 32px; height: 32px; border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; transition: border-color 0.2s, color 0.2s; }
-  .footer-social a:hover { border-color: var(--gold); color: var(--gold); }
+.hero-stats {
+  display: flex; gap: 24px;
+  margin-top: 44px; padding-top: 28px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+}
+.hero-stat-num {
+  font-family: 'Bebas Neue', sans-serif; font-size: 38px;
+  line-height: 1; color: var(--gold);
+}
+.hero-stat-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 0.07em;
+  text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 4px;
+}
 
-  /* REVEAL */
-  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
-  .reveal.visible { opacity: 1; transform: translateY(0); }
-  .reveal-delay-1 { transition-delay: 0.1s; }
-  .reveal-delay-2 { transition-delay: 0.2s; }
-  .reveal-delay-3 { transition-delay: 0.3s; }
-  .reveal-delay-4 { transition-delay: 0.4s; }
+/* Hero right image */
+.hero-right { position: relative; }
+.hero-image-wrap { position: relative; border-radius: var(--rlg); overflow: visible; }
+.hero-image-wrap img {
+  width: 100%; height: 520px; object-fit: cover;
+  object-position: center top; display: block; border-radius: var(--rlg);
+}
+.hero-img-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, transparent 50%, rgba(22,40,57,0.5) 100%);
+  border-radius: var(--rlg);
+}
+.hero-cert {
+  position: absolute; bottom: 20px; left: -16px;
+  background: #fff; border-radius: var(--r);
+  padding: 12px 16px; display: flex; align-items: center; gap: 10px;
+  box-shadow: var(--shadow-lg);
+}
+.hero-cert-icon {
+  width: 36px; height: 36px; background: var(--gold);
+  border-radius: 8px; display: flex; align-items: center; justify-content: center;
+  font-size: 17px; flex-shrink: 0;
+}
+.hero-cert strong { display: block; font-size: 12px; font-weight: 700; color: var(--text-dark); }
+.hero-cert span { font-size: 11px; color: var(--text-light); }
 
-  /* RESPONSIVE */
-  @media (max-width: 1024px) {
-    nav { padding: 0 24px; }
-    .nav-links { display: none; }
-    .container { padding: 0 24px; }
-    .hero-content { grid-template-columns: 1fr; gap: 40px; padding: 120px 24px 80px; }
-    .hero-right { display: none; }
-    .intro-grid, .transformers-grid, .why-grid, .testimonials-grid, .areas-inner, .cta-content, .faq-grid { grid-template-columns: 1fr; gap: 48px; }
-    .intro-image-stack { display: none; }
-    .services-grid { grid-template-columns: 1fr; }
-    .transformer-types { display: none; }
-    .process-steps { grid-template-columns: 1fr 1fr; gap: 32px; }
-    .process-steps::before { display: none; }
-    .services-header { flex-direction: column; align-items: flex-start; gap: 20px; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
-    .gallery-row { height: 140px; }
-  }
-  @media (max-width: 640px) {
-    .hero-stats { flex-wrap: wrap; gap: 20px; }
-    .process-steps, .footer-grid, .areas-list { grid-template-columns: 1fr; }
-    .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
-    .gallery-row { grid-template-columns: repeat(2, 1fr); height: 200px; }
-  }
+/* Wave */
+.hero-wave { position: absolute; bottom: -1px; left: 0; right: 0; z-index: 4; }
+
+/* ══════════════════════════════
+   MARQUEE
+══════════════════════════════ */
+.marquee-bar { background: var(--brand-dark); padding: 12px 0; overflow: hidden; }
+.marquee-track {
+  display: flex; animation: marquee 28s linear infinite;
+  white-space: nowrap; width: max-content;
+}
+.marquee-item {
+  font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700;
+  letter-spacing:0.1em; text-transform:uppercase; color:#fff;
+  padding:0 28px; display:flex; align-items:center; gap:12px;
+}
+.marquee-item::after { content:'⚡'; color:var(--gold); font-size:11px; }
+@keyframes marquee { 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+
+/* ══════════════════════════════
+   HELPERS
+══════════════════════════════ */
+.container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; color: var(--blue);
+  margin-bottom: 10px; display: flex; align-items: center; gap: 10px;
+}
+.section-label::before { content:''; width:22px; height:2px; background:var(--gold); flex-shrink:0; }
+.section-label.light { color: var(--gold-light); }
+.section-label.light::before { background: var(--gold); }
+.section-h2 {
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(36px,4.5vw,62px); line-height:0.95; letter-spacing:0.02em;
+  color:var(--text-dark);
+}
+.section-h2.light { color:#fff; }
+.color-divider { height:4px; background:linear-gradient(90deg,var(--blue),var(--gold),var(--blue-light)); }
+
+/* ══════════════════════════════
+   INTRO
+══════════════════════════════ */
+#intro { padding: 80px 0; background: #fff; }
+.intro-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+.intro-left .section-h2 { margin-bottom: 22px; }
+.intro-left p { font-size:15px; line-height:1.8; color:var(--text-mid); margin-bottom:16px; }
+.intro-left p strong { color:var(--text-dark); font-weight:600; }
+.intro-tags { display:flex; flex-wrap:wrap; gap:8px; margin-top:24px; }
+.tag {
+  background:var(--bg-section); border:1px solid var(--border);
+  color:var(--blue); font-size:11px; font-weight:600; letter-spacing:0.06em;
+  text-transform:uppercase; padding:5px 13px; border-radius:var(--rpill);
+}
+.intro-right { position:relative; }
+.intro-image-stack { position:relative; height:460px; }
+.intro-img-main {
+  position:absolute; top:0; right:0; width:80%; height:330px;
+  object-fit:cover; border-radius:var(--rlg); box-shadow:var(--shadow-lg);
+}
+.intro-img-secondary {
+  position:absolute; bottom:0; left:0; width:52%; height:220px;
+  object-fit:cover; border-radius:var(--r); box-shadow:var(--shadow); border:4px solid #fff;
+}
+.intro-accent {
+  position:absolute; bottom:40px; right:0;
+  background:var(--gold); color:var(--text-dark);
+  padding:16px 20px; text-align:center; border-radius:var(--r);
+  box-shadow:0 8px 24px rgba(215,183,72,0.4);
+}
+.intro-accent-num { font-family:'Bebas Neue',sans-serif; font-size:40px; line-height:1; display:block; }
+.intro-accent-txt { font-size:10px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; }
+
+/* ══════════════════════════════
+   SERVICES
+══════════════════════════════ */
+#services { padding:80px 0; background:var(--bg-section); }
+.services-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:44px; gap:20px; flex-wrap:wrap; }
+.services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+.service-card {
+  background:#fff; padding:32px 28px; position:relative; overflow:hidden;
+  border:1px solid var(--border-light); border-radius:var(--rlg);
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.service-card::before {
+  content:''; position:absolute; top:0;left:0;right:0; height:4px;
+  background:linear-gradient(90deg,var(--blue),var(--gold));
+  border-radius:var(--rlg) var(--rlg) 0 0;
+  transform:scaleX(0); transform-origin:left; transition:transform 0.35s;
+}
+.service-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+.service-card:hover::before { transform:scaleX(1); }
+.service-num {
+  font-family:'Bebas Neue',sans-serif; font-size:52px; line-height:1;
+  color:rgba(43,105,145,0.06); position:absolute; top:14px; right:18px;
+}
+.service-icon {
+  width:46px; height:46px; background:var(--blue-pale); border-radius:var(--rsm);
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; margin-bottom:16px;
+}
+.service-title {
+  font-family:'Barlow Condensed',sans-serif; font-size:18px; font-weight:700;
+  letter-spacing:0.04em; text-transform:uppercase; color:var(--text-dark); margin-bottom:9px;
+}
+.service-desc { font-size:14px; line-height:1.7; color:var(--text-light); }
+
+/* ══════════════════════════════
+   TRANSFORMERS
+══════════════════════════════ */
+#transformers { padding:100px 0; background:var(--bg-dark); position:relative; overflow:hidden; }
+.trans-bg {
+  position:absolute; inset:0;
+  background:radial-gradient(ellipse 65% 80% at 80% 50%, rgba(43,105,145,0.25) 0%, transparent 65%);
+}
+.trans-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; position:relative; z-index:1; }
+.trans-left .section-h2 { color:#fff; margin-bottom:20px; }
+.trans-lead { font-size:17px; line-height:1.7; color:rgba(255,255,255,0.88); margin-bottom:16px; font-weight:300; }
+.trans-left p { font-size:14px; line-height:1.8; color:rgba(255,255,255,0.6); margin-bottom:12px; }
+.kva-range {
+  display:flex; background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1); border-radius:var(--r);
+  overflow:hidden; margin:28px 0;
+}
+.kva-item { flex:1; padding:16px 18px; text-align:center; border-right:1px solid rgba(255,255,255,0.08); }
+.kva-item:last-child { border-right:none; }
+.kva-num { font-family:'Bebas Neue',sans-serif; font-size:30px; color:var(--gold); display:block; }
+.kva-lbl { font-size:10px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; color:rgba(255,255,255,0.45); margin-top:3px; }
+.trans-right { position:relative; }
+.trans-right img { width:100%; height:500px; object-fit:cover; border-radius:var(--rlg); display:block; }
+.trans-types {
+  position:absolute; left:-20px; top:50%; transform:translateY(-50%);
+  background:#fff; border-radius:var(--r); padding:16px 18px;
+  min-width:168px; box-shadow:var(--shadow-lg);
+}
+.trans-types h4 {
+  font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase;
+  color:var(--blue); margin-bottom:10px; padding-bottom:8px; border-bottom:2px solid var(--gold);
+}
+.trans-type { display:flex; align-items:center; gap:8px; padding:5px 0; font-size:12px; color:var(--text-mid); font-weight:500; }
+.trans-type::before { content:''; width:5px; height:5px; background:var(--gold); border-radius:50%; flex-shrink:0; }
+
+/* ══════════════════════════════
+   WHY
+══════════════════════════════ */
+#why { padding:80px 0; background:#fff; }
+.why-grid { display:grid; grid-template-columns:5fr 7fr; gap:64px; align-items:start; }
+.why-left .section-h2 { margin-bottom:20px; }
+.why-left p { font-size:15px; line-height:1.8; color:var(--text-mid); margin-bottom:20px; }
+.guarantee-box {
+  background:linear-gradient(135deg,var(--blue) 0%,var(--blue-light) 100%);
+  padding:24px; border-radius:var(--r); margin-top:24px;
+  position:relative; overflow:hidden;
+  box-shadow:0 8px 24px rgba(43,105,145,0.3);
+}
+.guarantee-box::after {
+  content:'✓'; position:absolute; right:14px; bottom:-14px;
+  font-size:64px; color:rgba(255,255,255,0.1); font-family:'Bebas Neue',sans-serif;
+}
+.guarantee-box h3 {
+  font-family:'Barlow Condensed',sans-serif; font-size:17px; font-weight:800;
+  letter-spacing:0.06em; text-transform:uppercase; color:#fff; margin-bottom:7px;
+}
+.guarantee-box p { font-size:14px; line-height:1.65; color:rgba(255,255,255,0.82); }
+.why-items { display:flex; flex-direction:column; }
+.why-item {
+  display:grid; grid-template-columns:52px 1fr; gap:18px;
+  padding:20px 0; border-bottom:1px solid var(--border-light); align-items:start;
+}
+.why-item:first-child { border-top:1px solid var(--border-light); }
+.why-icon { width:52px; height:52px; background:var(--blue-pale); border-radius:var(--rsm); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+.why-content h4 {
+  font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:700;
+  letter-spacing:0.04em; text-transform:uppercase; color:var(--text-dark); margin-bottom:4px;
+}
+.why-content p { font-size:13px; line-height:1.7; color:var(--text-light); }
+
+/* ══════════════════════════════
+   VALUES
+══════════════════════════════ */
+#values { padding:80px 0; background:var(--bg-section); }
+.values-header { text-align:center; margin-bottom:48px; }
+.values-header .section-label { justify-content:center; }
+.values-grid { display:grid; grid-template-columns:repeat(6,1fr); gap:14px; }
+.value-card {
+  background:#fff; border-radius:var(--rlg); padding:28px 16px 24px;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  border:1px solid var(--border-light);
+  transition:transform 0.3s,box-shadow 0.3s;
+  position:relative; overflow:hidden;
+}
+.value-card::after {
+  content:''; position:absolute; bottom:0;left:0;right:0; height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--gold));
+  transform:scaleX(0); transform-origin:left; transition:transform 0.35s;
+}
+.value-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+.value-card:hover::after { transform:scaleX(1); }
+.value-icon {
+  width:76px; height:76px; margin-bottom:14px;
+  background:#fff; border-radius:var(--r);
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 14px rgba(43,105,145,0.1);
+  border:1px solid var(--border-light);
+}
+.value-icon img { width:50px; height:50px; object-fit:contain; }
+.value-title {
+  font-family:'Barlow Condensed',sans-serif; font-size:15px; font-weight:800;
+  letter-spacing:0.06em; text-transform:uppercase; color:var(--blue); margin-bottom:7px;
+}
+.value-desc { font-size:12px; line-height:1.6; color:var(--text-light); }
+
+/* ══════════════════════════════
+   PROCESS
+══════════════════════════════ */
+#process { padding:80px 0; background:#fff; }
+.process-header { margin-bottom:52px; }
+.process-steps { display:grid; grid-template-columns:repeat(5,1fr); gap:0; position:relative; }
+.process-steps::before {
+  content:''; position:absolute; top:36px; left:10%; right:10%;
+  height:2px; background:linear-gradient(90deg,var(--blue),var(--gold),var(--blue));
+  opacity:0.3; border-radius:2px;
+}
+.process-step { position:relative; z-index:1; padding:0 14px; text-align:center; }
+.step-circle {
+  width:70px; height:70px; background:var(--bg-section);
+  border:3px solid var(--blue); border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  margin:0 auto 20px; box-shadow:0 4px 14px rgba(43,105,145,0.15);
+  transition:background 0.3s,border-color 0.3s;
+}
+.process-step:hover .step-circle { background:var(--blue); border-color:var(--gold); }
+.step-n { font-family:'Bebas Neue',sans-serif; font-size:24px; color:var(--blue); transition:color 0.3s; }
+.process-step:hover .step-n { color:#fff; }
+.step-title {
+  font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700;
+  letter-spacing:0.05em; text-transform:uppercase; color:var(--text-dark); margin-bottom:7px;
+}
+.step-desc { font-size:13px; line-height:1.6; color:var(--text-light); }
+
+/* ══════════════════════════════
+   TESTIMONIALS
+══════════════════════════════ */
+#testimonials { padding:80px 0; background:var(--bg-dark); position:relative; overflow:hidden; }
+.test-bg { position:absolute; inset:0; background:radial-gradient(ellipse 50% 60% at 10% 50%, rgba(43,105,145,0.3) 0%, transparent 60%); }
+.test-grid { display:grid; grid-template-columns:5fr 7fr; gap:64px; align-items:start; position:relative; z-index:1; }
+.test-left .section-h2 { color:#fff; margin-bottom:18px; }
+.test-left p { font-size:14px; line-height:1.8; color:rgba(255,255,255,0.62); margin-bottom:24px; }
+.rating-row {
+  display:flex; align-items:center; gap:14px; padding:16px 20px;
+  background:rgba(255,255,255,0.07); border:1px solid rgba(255,255,255,0.1);
+  border-radius:var(--r); margin-top:24px;
+}
+.rating-n { font-family:'Bebas Neue',sans-serif; font-size:44px; color:var(--gold); line-height:1; }
+.stars { color:var(--gold); font-size:14px; letter-spacing:2px; margin-bottom:2px; }
+.rating-c { font-size:11px; color:rgba(255,255,255,0.5); font-weight:500; }
+.test-cards { display:flex; flex-direction:column; gap:14px; }
+.review-card {
+  background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08);
+  border-radius:var(--r); padding:22px 24px; transition:background 0.3s;
+}
+.review-card:hover { background:rgba(255,255,255,0.1); }
+.review-card.feat { background:rgba(255,255,255,0.1); border-color:rgba(215,183,72,0.3); }
+.review-stars { color:var(--gold); font-size:12px; letter-spacing:2px; margin-bottom:10px; }
+.review-text { font-size:14px; line-height:1.75; color:rgba(255,255,255,0.85); margin-bottom:14px; font-style:italic; }
+.review-author { display:flex; align-items:center; gap:10px; }
+.review-av { width:32px; height:32px; background:var(--blue); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; flex-shrink:0; }
+.review-name { font-size:13px; font-weight:700; color:#fff; }
+.review-meta { font-size:11px; color:rgba(255,255,255,0.45); margin-top:1px; }
+
+/* ══════════════════════════════
+   AREAS
+══════════════════════════════ */
+#areas { padding:72px 0; background:var(--bg-section); }
+.areas-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; align-items:center; }
+.areas-left .section-h2 { margin-bottom:18px; }
+.areas-left p { font-size:14px; line-height:1.8; color:var(--text-mid); margin-bottom:24px; }
+.areas-list { display:grid; grid-template-columns:1fr 1fr; gap:0; }
+.area-item {
+  padding:10px 0; border-bottom:1px solid var(--border-light);
+  font-size:14px; font-weight:500; color:var(--text-mid);
+  display:flex; align-items:center; gap:8px;
+}
+.area-item::before { content:'→'; color:var(--blue); font-size:12px; }
+.areas-map { position:relative; height:380px; border-radius:var(--rlg); overflow:hidden; box-shadow:var(--shadow-lg); }
+.areas-map img { width:100%; height:100%; object-fit:cover; }
+.areas-overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(43,105,145,0.8) 0%,rgba(22,40,57,0.5) 100%);
+  display:flex; align-items:center; justify-content:center;
+  flex-direction:column; text-align:center; padding:32px;
+}
+.areas-overlay h3 { font-family:'Bebas Neue',sans-serif; font-size:42px; color:#fff; margin-bottom:6px; }
+.areas-overlay p { font-size:13px; color:var(--gold); font-weight:600; }
+
+/* ══════════════════════════════
+   GALLERY ROW
+══════════════════════════════ */
+.gallery-strip { display:grid; grid-template-columns:repeat(4,1fr); height:180px; gap:4px; overflow:hidden; }
+.gallery-strip img { width:100%; height:100%; object-fit:cover; transition:transform 0.4s; display:block; }
+.gallery-strip img:hover { transform:scale(1.05); }
+
+/* ══════════════════════════════
+   CTA
+══════════════════════════════ */
+#cta { padding:88px 0; background:var(--blue); position:relative; overflow:hidden; }
+.cta-pattern {
+  position:absolute; inset:0;
+  background-image:linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px);
+  background-size:40px 40px;
+}
+.cta-glow {
+  position:absolute; top:-80px; right:-80px; width:420px; height:420px;
+  background:radial-gradient(circle,rgba(215,183,72,0.2) 0%,transparent 65%);
+}
+.cta-inner { position:relative; z-index:1; display:grid; grid-template-columns:1fr auto; gap:48px; align-items:center; }
+.cta-inner h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(36px,4vw,60px); color:#fff; margin-bottom:12px; }
+.cta-inner p { font-size:16px; color:rgba(255,255,255,0.78); line-height:1.6; max-width:500px; margin-bottom:24px; }
+.cta-box { display:flex; flex-direction:column; gap:10px; align-items:center; text-align:center; min-width:220px; }
+.cta-lbl { font-size:10px; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:rgba(255,255,255,0.65); }
+.cta-phone { font-family:'Bebas Neue',sans-serif; font-size:34px; color:var(--gold); text-decoration:none; line-height:1; }
+.cta-phone:hover { opacity:0.85; }
+.cta-phone-sm { font-family:'Bebas Neue',sans-serif; font-size:26px; color:rgba(255,255,255,0.85); text-decoration:none; }
+.cta-email { font-size:13px; color:rgba(255,255,255,0.65); text-decoration:none; }
+
+/* ══════════════════════════════
+   FAQ
+══════════════════════════════ */
+#faq { padding:80px 0; background:#fff; }
+.faq-grid { display:grid; grid-template-columns:1fr 1fr; gap:64px; }
+.faq-left .section-h2 { margin-bottom:18px; }
+.faq-left p { font-size:14px; line-height:1.8; color:var(--text-mid); margin-bottom:24px; }
+.faq-items { display:flex; flex-direction:column; }
+.faq-item { border-bottom:1px solid var(--border-light); overflow:hidden; }
+.faq-q {
+  width:100%; background:none; border:none; cursor:pointer;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:18px 0; text-align:left; gap:14px;
+}
+.faq-q-txt {
+  font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:700;
+  letter-spacing:0.03em; text-transform:uppercase; color:var(--text-dark); transition:color 0.2s;
+}
+.faq-q:hover .faq-q-txt { color:var(--blue); }
+.faq-toggle { color:var(--blue); font-size:20px; font-weight:300; line-height:1; transition:transform 0.3s; flex-shrink:0; }
+.faq-item.open .faq-toggle { transform:rotate(45deg); }
+.faq-answer { max-height:0; overflow:hidden; transition:max-height 0.35s ease; }
+.faq-item.open .faq-answer { max-height:300px; }
+.faq-answer-inner { padding:0 0 18px; font-size:14px; line-height:1.75; color:var(--text-light); }
+
+/* ══════════════════════════════
+   FOOTER (same blue as nav)
+══════════════════════════════ */
+footer {
+  background: var(--brand);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 60px 0 0;
+}
+.footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1.4fr; gap:44px; padding-bottom:44px; }
+.footer-logo img { height:42px; width:auto; margin-bottom:16px; filter:brightness(1.05); }
+.footer-about { font-size:13px; line-height:1.7; color:rgba(255,255,255,0.62); max-width:260px; margin-bottom:16px; }
+.footer-lic { font-size:12px; color:var(--gold); font-weight:700; letter-spacing:0.06em; }
+.footer-col h4 {
+  font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700;
+  letter-spacing:0.1em; text-transform:uppercase; color:#fff;
+  margin-bottom:16px; padding-bottom:7px; border-bottom:2px solid var(--gold); display:inline-block;
+}
+.footer-links { list-style:none; display:flex; flex-direction:column; gap:9px; }
+.footer-links a { font-size:13px; color:rgba(255,255,255,0.62); text-decoration:none; transition:color 0.2s; }
+.footer-links a:hover { color:var(--gold); }
+.footer-contacts { display:flex; flex-direction:column; gap:12px; }
+.fc-item { display:flex; flex-direction:column; gap:1px; }
+.fc-lbl { font-size:10px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--gold); }
+.fc-val { font-size:13px; color:rgba(255,255,255,0.62); }
+.fc-val a { color:rgba(255,255,255,0.62); text-decoration:none; transition:color 0.2s; }
+.fc-val a:hover { color:#fff; }
+.footer-bottom {
+  border-top:1px solid rgba(255,255,255,0.1);
+  padding:18px 0;
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.footer-copy { font-size:11px; color:rgba(255,255,255,0.4); }
+.footer-social { display:flex; gap:10px; }
+.footer-social a {
+  width:34px; height:34px; border:1.5px solid rgba(255,255,255,0.22);
+  border-radius:50%; display:flex; align-items:center; justify-content:center;
+  color:rgba(255,255,255,0.62); text-decoration:none;
+  transition:border-color 0.2s,color 0.2s,background 0.2s;
+}
+.footer-social a:hover { border-color:var(--gold); color:var(--gold); background:rgba(215,183,72,0.1); }
+.footer-social svg { width:16px; height:16px; fill:currentColor; }
+
+/* ══════════════════════════════
+   REVEAL
+══════════════════════════════ */
+.reveal { opacity:0; transform:translateY(24px); transition:opacity 0.65s ease,transform 0.65s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.rd1 { transition-delay:.1s; } .rd2 { transition-delay:.2s; }
+.rd3 { transition-delay:.3s; } .rd4 { transition-delay:.4s; }
+
+/* ══════════════════════════════
+   RESPONSIVE — TABLET (≤ 900px)
+══════════════════════════════ */
+@media (max-width: 900px) {
+  /* nav */
+  .nav-links-desktop { display:none; }
+  .nav-phone-link { display:none; }
+  .nav-cta-desktop .btn-gold { display:none; }
+  .nav-hamburger { display:flex; }
+
+  /* hero */
+  .hero-content { grid-template-columns:1fr; gap:0; padding:110px 20px 72px; }
+  .hero-right { display:none; }
+  .hero-stats { gap:20px; flex-wrap:wrap; }
+
+  /* intro */
+  .intro-grid { grid-template-columns:1fr; gap:40px; }
+  .intro-right { display:none; }
+
+  /* services */
+  .services-grid { grid-template-columns:1fr 1fr; }
+  .services-header { flex-direction:column; align-items:flex-start; }
+
+  /* transformers */
+  .trans-grid { grid-template-columns:1fr; gap:40px; }
+  .trans-types { display:none; }
+  .trans-right img { height:300px; }
+
+  /* why */
+  .why-grid { grid-template-columns:1fr; gap:40px; }
+
+  /* values */
+  .values-grid { grid-template-columns:repeat(3,1fr); gap:14px; }
+
+  /* process */
+  .process-steps { grid-template-columns:1fr 1fr; gap:28px; }
+  .process-steps::before { display:none; }
+
+  /* testimonials */
+  .test-grid { grid-template-columns:1fr; gap:40px; }
+
+  /* areas */
+  .areas-grid { grid-template-columns:1fr; gap:40px; }
+  .areas-list { grid-template-columns:1fr 1fr; }
+
+  /* cta */
+  .cta-inner { grid-template-columns:1fr; gap:36px; }
+  .cta-box { align-items:flex-start; text-align:left; }
+
+  /* faq */
+  .faq-grid { grid-template-columns:1fr; gap:40px; }
+
+  /* footer */
+  .footer-grid { grid-template-columns:1fr 1fr; gap:32px; }
+  .footer-bottom { flex-direction:column; text-align:center; }
+
+  /* gallery */
+  .gallery-strip { height:130px; }
+
+  /* containers */
+  .container { padding:0 18px; }
+}
+
+/* ══════════════════════════════
+   RESPONSIVE — MOBILE (≤ 540px)
+══════════════════════════════ */
+@media (max-width: 540px) {
+  /* hero */
+  .hero-content { padding:100px 16px 60px; }
+  .hero-h1 { font-size: clamp(48px, 13vw, 72px); }
+  .hero-sub { font-size:15px; }
+  .hero-actions { flex-direction:column; align-items:stretch; }
+  .hero-actions a { text-align:center; }
+  .hero-stats { gap:16px; }
+
+  /* services */
+  .services-grid { grid-template-columns:1fr; }
+
+  /* values */
+  .values-grid { grid-template-columns:repeat(2,1fr); }
+
+  /* process */
+  .process-steps { grid-template-columns:1fr; }
+
+  /* areas list */
+  .areas-list { grid-template-columns:1fr; }
+
+  /* footer */
+  .footer-grid { grid-template-columns:1fr; }
+
+  /* gallery */
+  .gallery-strip { grid-template-columns:repeat(2,1fr); height:180px; }
+
+  /* sections padding */
+  #intro,#services,#transformers,#why,#values,#process,
+  #testimonials,#areas,#cta,#faq { padding:60px 0; }
+
+  .container { padding:0 16px; }
+  .section-h2 { font-size:clamp(32px,9vw,48px); }
+}
 </style>
 </head>
 <body>
 
+<!-- ══ NAV ══ -->
 <nav id="navbar">
-  <a href="#" class="nav-logo">
-    <img src="https://github.com/user-attachments/assets/c11b0ca2-8a18-4d38-9970-59ca5faac5f7" alt="Witness Electrical LLC">
-  </a>
-  <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#transformers">Transformers</a></li>
-    <li><a href="#why">About</a></li>
-    <li><a href="#testimonials">Reviews</a></li>
-    <li><a href="#faq">FAQ</a></li>
-    <li><a href="#cta">Contact</a></li>
-  </ul>
-  <div class="nav-cta">
-    <a href="tel:+14085949884" class="nav-phone">📞 (408) 594-9884</a>
-    <a href="#cta" class="btn-gold" style="padding:10px 22px; font-size:13px;">Free Estimate</a>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="https://github.com/user-attachments/assets/c11b0ca2-8a18-4d38-9970-59ca5faac5f7" alt="Witness Electrical LLC">
+    </a>
+
+    <!-- Desktop: only 4 links -->
+    <ul class="nav-links-desktop">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#transformers">Transformers</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#cta">Contact</a></li>
+    </ul>
+
+    <!-- Desktop CTA -->
+    <div class="nav-cta-desktop">
+      <a href="tel:+14085949884" class="nav-phone-link">📞 (408) 594-9884</a>
+      <a href="#cta" class="btn-gold">Free Estimate</a>
+    </div>
+
+    <!-- Hamburger (mobile only) -->
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
+<!-- Mobile Drawer -->
+<div class="nav-drawer" id="drawer">
+  <a href="#services"     onclick="closeDrawer()">Services</a>
+  <a href="#transformers" onclick="closeDrawer()">Transformers</a>
+  <a href="#values"       onclick="closeDrawer()">Our Values</a>
+  <a href="#testimonials" onclick="closeDrawer()">Reviews</a>
+  <a href="#areas"        onclick="closeDrawer()">Service Areas</a>
+  <a href="#faq"          onclick="closeDrawer()">FAQ</a>
+  <div class="nav-drawer-cta">
+    <a href="tel:+14085949884" class="dcta-gold" onclick="closeDrawer()">📞 (408) 594-9884</a>
+    <a href="#cta" class="dcta-outline" onclick="closeDrawer()">Get a Free Estimate</a>
+  </div>
+</div>
+
+<!-- ══ HERO ══ -->
 <section id="hero">
   <div class="hero-bg"></div>
-  <div class="hero-grid-lines"></div>
+  <div class="hero-grid"></div>
   <div class="hero-content">
-    <div class="hero-left">
+    <div>
       <div class="hero-badge">Bay Area & Central Valley — Licensed #1067437</div>
-      <h1 class="hero-h1">WITNESS<br><span class="gold">ELECTRICAL</span><br><span class="sub-word">LLC</span></h1>
-      <p class="hero-sub">Residential electrical services and transformer supply for the Bay Area and beyond. We source and distribute industrial transformers — any type, up to 5,000 KVA — direct from manufacturers in Mexico.</p>
+      <h1 class="hero-h1">WITNESS<br><span class="gold">ELECTRICAL</span><br><span class="sub">LLC</span></h1>
+      <p class="hero-sub">Residential electrical services and transformer supply for the Bay Area and beyond. Any type, up to 5,000 KVA — direct from manufacturers in Mexico.</p>
       <div class="hero-actions">
-        <a href="#cta" class="btn-gold" style="padding:14px 30px; font-size:14px;">Get a Free Estimate</a>
-        <a href="tel:+14085949884" class="btn-outline-white" style="padding:14px 30px; font-size:14px;">Call Now</a>
+        <a href="#cta" class="btn-gold btn-gold-lg">Get a Free Estimate</a>
+        <a href="tel:+14085949884" class="btn-outline-white">📞 Call Now</a>
       </div>
       <div class="hero-stats">
         <div><div class="hero-stat-num">10+</div><div class="hero-stat-label">Years in Business</div></div>
-        <div><div class="hero-stat-num">5000</div><div class="hero-stat-label">Max KVA Supply</div></div>
-        <div><div class="hero-stat-num">CA #1</div><div class="hero-stat-label">Licensed &amp; Insured</div></div>
+        <div><div class="hero-stat-num">5,000</div><div class="hero-stat-label">Max KVA</div></div>
+        <div><div class="hero-stat-num">CA</div><div class="hero-stat-label">Licensed &amp; Insured</div></div>
       </div>
     </div>
     <div class="hero-right">
       <div class="hero-image-wrap">
         <img src="https://github.com/user-attachments/assets/b76d8899-731f-496f-b4c1-89d058ea072e" alt="Witness Electrical electrician">
-        <div class="hero-image-overlay"></div>
-        <div class="hero-cert-badge">
+        <div class="hero-img-overlay"></div>
+        <div class="hero-cert">
           <div class="hero-cert-icon">⚡</div>
-          <div class="hero-cert-text"><strong>CA License #1067437</strong><span>Fully Licensed &amp; Insured</span></div>
+          <div><strong>CA License #1067437</strong><span>Fully Licensed &amp; Insured</span></div>
         </div>
       </div>
     </div>
   </div>
   <div class="hero-wave">
-    <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:80px;">
-      <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#2B6991"/>
+    <svg viewBox="0 0 1440 70" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="display:block;width:100%;height:70px;">
+      <path d="M0,35 C360,70 1080,0 1440,35 L1440,70 L0,70 Z" fill="#1e4f6b"/>
     </svg>
   </div>
 </section>
 
+<!-- ══ MARQUEE ══ -->
 <div class="marquee-bar">
   <div class="marquee-track">
-    <div class="marquee-item">Panel Upgrades</div><div class="marquee-item">Transformer Supply Up to 5000 KVA</div><div class="marquee-item">Whole House Rewire</div><div class="marquee-item">EV Charger Installation</div><div class="marquee-item">Industrial Transformers</div><div class="marquee-item">Outdoor Lighting</div><div class="marquee-item">Troubleshooting &amp; Repair</div><div class="marquee-item">Distribution Transformers</div><div class="marquee-item">Panel Upgrades</div><div class="marquee-item">Transformer Supply Up to 5000 KVA</div><div class="marquee-item">Whole House Rewire</div><div class="marquee-item">EV Charger Installation</div><div class="marquee-item">Industrial Transformers</div><div class="marquee-item">Outdoor Lighting</div><div class="marquee-item">Troubleshooting &amp; Repair</div><div class="marquee-item">Distribution Transformers</div>
+    <div class="marquee-item">Panel Upgrades</div>
+    <div class="marquee-item">Transformer Supply Up to 5000 KVA</div>
+    <div class="marquee-item">Whole House Rewire</div>
+    <div class="marquee-item">EV Charger Installation</div>
+    <div class="marquee-item">Industrial Transformers</div>
+    <div class="marquee-item">Outdoor Lighting</div>
+    <div class="marquee-item">Troubleshooting &amp; Repair</div>
+    <div class="marquee-item">Distribution Transformers</div>
+    <div class="marquee-item">Panel Upgrades</div>
+    <div class="marquee-item">Transformer Supply Up to 5000 KVA</div>
+    <div class="marquee-item">Whole House Rewire</div>
+    <div class="marquee-item">EV Charger Installation</div>
+    <div class="marquee-item">Industrial Transformers</div>
+    <div class="marquee-item">Outdoor Lighting</div>
+    <div class="marquee-item">Troubleshooting &amp; Repair</div>
+    <div class="marquee-item">Distribution Transformers</div>
   </div>
 </div>
 
+<!-- ══ INTRO ══ -->
 <section id="intro">
   <div class="container">
     <div class="intro-grid">
-      <div class="intro-left reveal">
+      <div class="reveal">
         <div class="section-label">Who We Are</div>
         <h2 class="section-h2">POWERING THE BAY AREA SINCE DAY ONE</h2>
         <p>We started Witness Electrical LLC doing residential work in the Bay Area — panel upgrades, rewires, EV chargers, lighting. Over a decade later we're still doing that, and we've expanded into something most local electricians don't touch: <strong>industrial transformer distribution.</strong></p>
         <p>We're working directly with manufacturers in Mexico to supply transformers to distributors and end-users across California. Any type. Up to 5,000 KVA. Competitive pricing, real lead times, and people you can actually talk to.</p>
-        <p>Both sides of the business run on the same principle: <strong>show up, do the work right, don't make it complicated.</strong></p>
+        <p>Both sides run on the same principle: <strong>show up, do the work right, don't make it complicated.</strong></p>
         <div class="intro-tags">
-          <span class="tag">Residential</span><span class="tag">Commercial</span><span class="tag">Transformer Supply</span><span class="tag">Bay Area</span><span class="tag">Central Valley</span><span class="tag">Mexico Imports</span>
+          <span class="tag">Residential</span>
+          <span class="tag">Commercial</span>
+          <span class="tag">Transformer Supply</span>
+          <span class="tag">Bay Area</span>
+          <span class="tag">Central Valley</span>
         </div>
-        <div style="margin-top:32px;"><a href="#cta" class="btn-blue">Get a Free Estimate</a></div>
+        <div style="margin-top:28px;"><a href="#cta" class="btn-blue">Get a Free Estimate</a></div>
       </div>
-      <div class="intro-right reveal reveal-delay-2">
+      <div class="intro-right reveal rd2">
         <div class="intro-image-stack">
           <img class="intro-img-main" src="https://github.com/user-attachments/assets/4106da69-97a5-4c36-9a09-1ff28b73974c" alt="Electrical work">
           <img class="intro-img-secondary" src="https://github.com/user-attachments/assets/01b580ec-c5e2-4b21-a1f7-801a9895bb2b" alt="Panel">
-          <div class="intro-accent-box"><span class="intro-accent-num">A+</span><span class="intro-accent-text">Workmanship</span></div>
+          <div class="intro-accent"><span class="intro-accent-num">A+</span><span class="intro-accent-txt">Workmanship</span></div>
         </div>
       </div>
     </div>
@@ -388,6 +899,7 @@
 
 <div class="color-divider"></div>
 
+<!-- ══ SERVICES ══ -->
 <section id="services">
   <div class="container">
     <div class="services-header">
@@ -395,83 +907,127 @@
         <div class="section-label">What We Do</div>
         <h2 class="section-h2">ELECTRICAL SERVICES</h2>
       </div>
-      <a href="#cta" class="btn-blue reveal" style="white-space:nowrap;">Schedule Service →</a>
+      <a href="#cta" class="btn-blue reveal">Schedule Service →</a>
     </div>
     <div class="services-grid">
-      <div class="service-card reveal"><div class="service-num">01</div><div class="service-icon">🔲</div><div class="service-title">Panel Upgrades</div><p class="service-desc">Old panel tripping breakers? Running out of capacity? We assess, plan, and install — and we make sure it passes inspection the first time.</p></div>
-      <div class="service-card reveal reveal-delay-1"><div class="service-num">02</div><div class="service-icon">🏠</div><div class="service-title">Whole House Rewire</div><p class="service-desc">Outdated wiring is a fire hazard. We do full rewires on occupied and vacant homes, with minimal disruption and a clean finish.</p></div>
-      <div class="service-card reveal reveal-delay-2"><div class="service-num">03</div><div class="service-icon">🔧</div><div class="service-title">Troubleshooting & Repair</div><p class="service-desc">Flickering lights, dead outlets, mystery tripping — we find it and fix it. No part-guessing, no unnecessary upsells.</p></div>
-      <div class="service-card reveal"><div class="service-num">04</div><div class="service-icon">💡</div><div class="service-title">Indoor & Outdoor Lighting</div><p class="service-desc">From kitchen recessed lighting to full exterior security setups. We install it right so you're not calling us back in six months.</p></div>
-      <div class="service-card reveal reveal-delay-1"><div class="service-num">05</div><div class="service-icon">⚡</div><div class="service-title">EV Charger Installation</div><p class="service-desc">Level 2 home charging stations. We handle the permit, panel assessment, and the install — done in one visit in most cases.</p></div>
-      <div class="service-card reveal reveal-delay-2"><div class="service-num">06</div><div class="service-icon">🌀</div><div class="service-title">Ceiling & Exhaust Fans</div><p class="service-desc">New installs and replacements. If your bathroom fan sounds like a helicopter or your ceiling fan wobbles, we fix that too.</p></div>
+      <div class="service-card reveal"><div class="service-num">01</div><div class="service-icon">🔲</div><div class="service-title">Panel Upgrades</div><p class="service-desc">Old panel tripping breakers? We assess, plan, and install — and we make sure it passes inspection the first time.</p></div>
+      <div class="service-card reveal rd1"><div class="service-num">02</div><div class="service-icon">🏠</div><div class="service-title">Whole House Rewire</div><p class="service-desc">Outdated wiring is a fire hazard. We do full rewires on occupied and vacant homes with minimal disruption.</p></div>
+      <div class="service-card reveal rd2"><div class="service-num">03</div><div class="service-icon">🔧</div><div class="service-title">Troubleshooting & Repair</div><p class="service-desc">Flickering lights, dead outlets, mystery tripping — we find it and fix it. No part-guessing.</p></div>
+      <div class="service-card reveal"><div class="service-num">04</div><div class="service-icon">💡</div><div class="service-title">Indoor & Outdoor Lighting</div><p class="service-desc">From kitchen recessed lighting to full exterior security setups. Installed right the first time.</p></div>
+      <div class="service-card reveal rd1"><div class="service-num">05</div><div class="service-icon">⚡</div><div class="service-title">EV Charger Installation</div><p class="service-desc">Level 2 home charging. We handle the permit, panel assessment, and install — one visit in most cases.</p></div>
+      <div class="service-card reveal rd2"><div class="service-num">06</div><div class="service-icon">🌀</div><div class="service-title">Ceiling & Exhaust Fans</div><p class="service-desc">New installs and replacements. If your bathroom fan sounds like a helicopter, we fix that too.</p></div>
     </div>
   </div>
 </section>
 
+<!-- ══ TRANSFORMERS ══ -->
 <section id="transformers">
-  <div class="transformers-bg"></div>
+  <div class="trans-bg"></div>
   <div class="container">
-    <div class="transformers-grid">
-      <div class="transformers-left reveal">
+    <div class="trans-grid">
+      <div class="trans-left reveal">
         <div class="section-label light">New Division</div>
         <h2 class="section-h2 light">TRANSFORMER SUPPLY & DISTRIBUTION</h2>
-        <p class="lead">We're not just electricians anymore. We source transformers direct from manufacturers in Mexico and supply them to distributors and buyers across the U.S.</p>
-        <p>Whether you need a small dry-type for a commercial build or a large power transformer for an industrial project, we can source it. Better pricing and faster lead times than traditional channels.</p>
-        <p>This isn't a side project — it's a real distribution operation. If you're a buyer, contractor, or distributor looking for a reliable supply partner, let's talk.</p>
+        <p class="trans-lead">We source transformers direct from manufacturers in Mexico and supply them to distributors and buyers across the U.S.</p>
+        <p>Whether you need a small dry-type for a commercial build or a large power transformer for an industrial project, we can source it. Better pricing, faster lead times.</p>
+        <p>This is a real distribution operation. If you're a buyer, contractor, or distributor looking for a reliable partner, let's talk.</p>
         <div class="kva-range">
-          <div class="kva-item"><span class="kva-num">1</span><div class="kva-label">KVA Min</div></div>
-          <div class="kva-item"><span class="kva-num">5,000</span><div class="kva-label">KVA Max</div></div>
-          <div class="kva-item"><span class="kva-num">MX</span><div class="kva-label">Origin</div></div>
-          <div class="kva-item"><span class="kva-num">CA</span><div class="kva-label">Delivery</div></div>
+          <div class="kva-item"><span class="kva-num">1</span><div class="kva-lbl">KVA Min</div></div>
+          <div class="kva-item"><span class="kva-num">5,000</span><div class="kva-lbl">KVA Max</div></div>
+          <div class="kva-item"><span class="kva-num">MX</span><div class="kva-lbl">Origin</div></div>
+          <div class="kva-item"><span class="kva-num">CA</span><div class="kva-lbl">Delivery</div></div>
         </div>
-        <div style="display:flex; gap:14px; flex-wrap:wrap;">
-          <a href="#cta" class="btn-gold" style="padding:14px 28px;">Inquire About Supply</a>
-          <a href="tel:+14085303201" class="btn-outline-white" style="padding:14px 28px;">Call Transformer Division</a>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <a href="#cta" class="btn-gold btn-gold-lg">Inquire About Supply</a>
+          <a href="tel:+14085303201" class="btn-outline-white">Call Transformer Division</a>
         </div>
       </div>
-      <div class="transformers-right reveal reveal-delay-2">
+      <div class="trans-right reveal rd2">
         <img src="https://github.com/user-attachments/assets/a7d62c6a-c14d-48ed-a8d1-2886000a10f2" alt="Industrial transformer">
-        <div class="transformer-types">
+        <div class="trans-types">
           <h4>Transformer Types</h4>
-          <div class="transformer-type-item">Dry-Type Distribution</div>
-          <div class="transformer-type-item">Oil-Immersed Power</div>
-          <div class="transformer-type-item">Pad-Mount</div>
-          <div class="transformer-type-item">Step-Up / Step-Down</div>
-          <div class="transformer-type-item">Auto Transformers</div>
-          <div class="transformer-type-item">Isolation Transformers</div>
-          <div class="transformer-type-item">Custom Spec</div>
+          <div class="trans-type">Dry-Type Distribution</div>
+          <div class="trans-type">Oil-Immersed Power</div>
+          <div class="trans-type">Pad-Mount</div>
+          <div class="trans-type">Step-Up / Step-Down</div>
+          <div class="trans-type">Auto Transformers</div>
+          <div class="trans-type">Custom Spec</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ══ WHY ══ -->
 <section id="why">
   <div class="container">
     <div class="why-grid">
-      <div class="why-left reveal">
+      <div class="reveal">
         <div class="section-label">Why Witness</div>
         <h2 class="section-h2">WE DO WHAT WE SAY WE'LL DO</h2>
         <p>We've been in business long enough to know that most electrical problems aren't complicated — they just need someone who knows what they're doing and shows up when they say they will.</p>
-        <p>Our guys are licensed, clean, and don't disappear mid-job. We pull permits when they're required. We don't cut corners because corners get caught on inspection.</p>
+        <p>Our guys are licensed, clean, and don't disappear mid-job. We pull permits when required. No cutting corners.</p>
         <div class="guarantee-box">
           <h3>Our Workmanship Guarantee</h3>
-          <p>Every job we complete is backed by our workmanship guarantee. If something isn't right, we come back and fix it. No argument, no invoice.</p>
+          <p>Every job is backed by our guarantee. If something isn't right, we come back and fix it — no argument, no invoice.</p>
         </div>
       </div>
-      <div class="why-right reveal reveal-delay-1">
+      <div class="reveal rd1">
         <div class="why-items">
-          <div class="why-item"><div class="why-icon-wrap">🛡️</div><div class="why-content"><h4>Licensed & Fully Insured</h4><p>CA License #1067437. Full general liability and workers' comp. You're protected, full stop.</p></div></div>
-          <div class="why-item"><div class="why-icon-wrap">📋</div><div class="why-content"><h4>We Pull Permits</h4><p>If it needs a permit, we get one. We don't ask homeowners to "risk it." That's how electrical fires start.</p></div></div>
-          <div class="why-item"><div class="why-icon-wrap">⏱️</div><div class="why-content"><h4>On-Time, Every Time</h4><p>We give you a real window and we show up in it. If something changes, we call you.</p></div></div>
-          <div class="why-item"><div class="why-icon-wrap">💬</div><div class="why-content"><h4>Straight Communication</h4><p>You'll know what we found, what it costs, and why. No surprise charges after the job is done.</p></div></div>
-          <div class="why-item"><div class="why-icon-wrap">🔌</div><div class="why-content"><h4>Code Compliant Work</h4><p>Everything meets current NEC and California electrical codes.</p></div></div>
+          <div class="why-item"><div class="why-icon">🛡️</div><div class="why-content"><h4>Licensed & Fully Insured</h4><p>CA License #1067437. Full general liability and workers' comp.</p></div></div>
+          <div class="why-item"><div class="why-icon">📋</div><div class="why-content"><h4>We Pull Permits</h4><p>If it needs a permit, we get one. No risks, no shortcuts.</p></div></div>
+          <div class="why-item"><div class="why-icon">⏱️</div><div class="why-content"><h4>On-Time, Every Time</h4><p>We give you a real window and show up in it. If something changes, we call.</p></div></div>
+          <div class="why-item"><div class="why-icon">💬</div><div class="why-content"><h4>Straight Communication</h4><p>You'll know what we found, what it costs, and why. No surprise charges.</p></div></div>
+          <div class="why-item"><div class="why-icon">🔌</div><div class="why-content"><h4>Code Compliant Work</h4><p>Everything meets current NEC and California electrical codes.</p></div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ══ VALUES (6 brand icons) ══ -->
+<section id="values">
+  <div class="container">
+    <div class="values-header reveal">
+      <div class="section-label">Our Core Values</div>
+      <h2 class="section-h2">WHAT WE STAND FOR</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-icon"><img src="https://github.com/user-attachments/assets/292a3192-4638-4e50-a26e-18d187376390" alt="Info on Hand"></div>
+        <div class="value-title">Info on Hand</div>
+        <p class="value-desc">We give you all the info you need — before, during, and after every job.</p>
+      </div>
+      <div class="value-card reveal rd1">
+        <div class="value-icon"><img src="https://github.com/user-attachments/assets/001c666c-aab7-4fad-811a-d8a51e060d9f" alt="Commitment"></div>
+        <div class="value-title">Commitment</div>
+        <p class="value-desc">Commitment is demonstrated, not just promised. We follow through every time.</p>
+      </div>
+      <div class="value-card reveal rd2">
+        <div class="value-icon"><img src="https://github.com/user-attachments/assets/192beb5e-9414-4b64-b386-2e283b2f67bd" alt="Effort"></div>
+        <div class="value-title">Effort</div>
+        <p class="value-desc">Knowledge and skill add up — attitude multiplies. Full effort on every call.</p>
+      </div>
+      <div class="value-card reveal rd3">
+        <div class="value-icon"><img src="https://github.com/user-attachments/assets/f3730b62-ab72-4167-a7ee-c2feced5082d" alt="Honesty"></div>
+        <div class="value-title">Honesty</div>
+        <p class="value-desc">We always work with rectitude and sincerity. You'll know exactly what's going on.</p>
+      </div>
+      <div class="value-card reveal rd4">
+        <div class="value-icon"><img src="https://github.com/user-attachments/assets/f90602f4-371a-4773-a8cc-57ae7d617c3b" alt="Integrity"></div>
+        <div class="value-title">Integrity</div>
+        <p class="value-desc">We work with the highest values and principles — no exceptions, no shortcuts.</p>
+      </div>
+      <div class="value-card reveal rd4">
+        <div class="value-icon"><img src="https://github.com/user-attachments/assets/abf3fa1c-1d13-4354-93f1-8f74e998ef16" alt="Warranty"></div>
+        <div class="value-title">Warranty</div>
+        <p class="value-desc">We ensure the quality of our work. Something wrong? We come back and fix it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESS ══ -->
 <section id="process">
   <div class="container">
     <div class="process-header reveal">
@@ -479,120 +1035,148 @@
       <h2 class="section-h2">FROM CALL TO COMPLETION</h2>
     </div>
     <div class="process-steps">
-      <div class="process-step reveal"><div class="step-num-wrap"><div class="step-num">01</div></div><div class="step-title">You Call or Submit</div><p class="step-desc">Phone or form — we respond the same day, usually within a couple hours.</p></div>
-      <div class="process-step reveal reveal-delay-1"><div class="step-num-wrap"><div class="step-num">02</div></div><div class="step-title">Free Evaluation</div><p class="step-desc">We come out, look at the job, and give you a straight quote.</p></div>
-      <div class="process-step reveal reveal-delay-2"><div class="step-num-wrap"><div class="step-num">03</div></div><div class="step-title">You Approve</div><p class="step-desc">We explain the scope, you say yes. We schedule immediately.</p></div>
-      <div class="process-step reveal reveal-delay-3"><div class="step-num-wrap"><div class="step-num">04</div></div><div class="step-title">We Do the Work</div><p class="step-desc">Clean, professional, and done right. Permits handled.</p></div>
-      <div class="process-step reveal reveal-delay-4"><div class="step-num-wrap"><div class="step-num">05</div></div><div class="step-title">Done. Guaranteed.</div><p class="step-desc">Walk-through when finished. Workmanship guaranteed.</p></div>
+      <div class="process-step reveal"><div class="step-circle"><div class="step-n">01</div></div><div class="step-title">You Call or Submit</div><p class="step-desc">Phone or form — we respond the same day.</p></div>
+      <div class="process-step reveal rd1"><div class="step-circle"><div class="step-n">02</div></div><div class="step-title">Free Evaluation</div><p class="step-desc">We come out, look at the job, give you a straight quote.</p></div>
+      <div class="process-step reveal rd2"><div class="step-circle"><div class="step-n">03</div></div><div class="step-title">You Approve</div><p class="step-desc">Explain the scope, you say yes, we schedule immediately.</p></div>
+      <div class="process-step reveal rd3"><div class="step-circle"><div class="step-n">04</div></div><div class="step-title">We Do the Work</div><p class="step-desc">Clean, professional, done right. Permits handled.</p></div>
+      <div class="process-step reveal rd4"><div class="step-circle"><div class="step-n">05</div></div><div class="step-title">Done. Guaranteed.</div><p class="step-desc">Walk-through at finish. Workmanship backed.</p></div>
     </div>
   </div>
 </section>
 
+<!-- ══ TESTIMONIALS ══ -->
 <section id="testimonials">
-  <div class="testimonials-bg"></div>
+  <div class="test-bg"></div>
   <div class="container">
-    <div class="testimonials-grid">
-      <div class="testimonials-left reveal">
+    <div class="test-grid">
+      <div class="reveal">
         <div class="section-label light">Client Reviews</div>
         <h2 class="section-h2 light">DON'T TAKE OUR WORD FOR IT</h2>
-        <p>Real reviews from real customers across the Bay Area and Central Valley. We don't chase 5-stars — we just do the work right and the reviews follow.</p>
-        <div class="rating-summary">
-          <div class="rating-num">5.0</div>
-          <div><div class="stars">★★★★★</div><div class="rating-count">Based on verified Google reviews</div></div>
+        <p>Real reviews from real customers across the Bay Area and Central Valley. We don't chase 5-stars — we just do the work right.</p>
+        <div class="rating-row">
+          <div class="rating-n">5.0</div>
+          <div><div class="stars">★★★★★</div><div class="rating-c">Verified Google reviews</div></div>
         </div>
       </div>
-      <div class="testimonials-right reveal reveal-delay-1">
-        <div class="review-card featured"><div class="review-stars">★★★★★</div><p class="review-text">"Had some fans and lights installed by Javier out here in Modesto. We had a great experience and would hire again! We would highly recommend them to all and will consider them again for all electrical needs!"</p><div class="review-author"><div class="review-avatar">S</div><div><div class="review-name">Sarah Ann Reeves</div><div class="review-meta">Modesto, CA — 3 years ago</div></div></div></div>
-        <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"So glad to see that they work in Modesto. Javier was a personable worker who got the job done quickly and efficiently. Will use this company again."</p><div class="review-author"><div class="review-avatar">C</div><div><div class="review-name">Cathey King</div><div class="review-meta">Modesto, CA — 3 years ago</div></div></div></div>
-        <div class="review-card"><div class="review-stars">★★★★★</div><p class="review-text">"Gibbs Electric is quite amazing!! Full remodel on a commercial design center with super tricky situations. Daniel was calm, came back with suggestions that worked perfectly. Finished exactly when I needed it."</p><div class="review-author"><div class="review-avatar">R</div><div><div class="review-name">Ryan Stecklair</div><div class="review-meta">Owner, Family Interiors — Commercial Client</div></div></div></div>
+      <div class="test-cards reveal rd1">
+        <div class="review-card feat">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Had some fans and lights installed by Javier out here in Modesto. We had a great experience and would hire again! Highly recommend them for all electrical needs!"</p>
+          <div class="review-author"><div class="review-av">S</div><div><div class="review-name">Sarah Ann Reeves</div><div class="review-meta">Modesto, CA</div></div></div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"So glad to see that they work in Modesto. Javier was personable and got the job done quickly and efficiently. Will use again."</p>
+          <div class="review-author"><div class="review-av">C</div><div><div class="review-name">Cathey King</div><div class="review-meta">Modesto, CA</div></div></div>
+        </div>
+        <div class="review-card">
+          <div class="review-stars">★★★★★</div>
+          <p class="review-text">"Quite amazing!! Full remodel on a commercial design center with tricky situations. Daniel was calm, flexible with schedules, and finished exactly when I needed it."</p>
+          <div class="review-author"><div class="review-av">R</div><div><div class="review-name">Ryan Stecklair</div><div class="review-meta">Owner, Family Interiors</div></div></div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ══ AREAS ══ -->
 <section id="areas">
   <div class="container">
-    <div class="areas-inner">
-      <div class="areas-left reveal">
+    <div class="areas-grid">
+      <div class="reveal">
         <div class="section-label">Where We Work</div>
         <h2 class="section-h2">SERVICE AREAS</h2>
-        <p>We cover the Bay Area and Central Valley for residential and commercial electrical. For transformer supply, we ship anywhere in California and we're expanding nationally.</p>
+        <p>We cover the Bay Area and Central Valley for residential and commercial electrical. For transformer supply, we ship anywhere in California.</p>
         <div class="areas-list">
-          <div class="area-item">San Jose</div><div class="area-item">San Francisco</div><div class="area-item">Oakland</div><div class="area-item">Fremont</div><div class="area-item">Modesto</div><div class="area-item">Stockton</div><div class="area-item">Santa Clara</div><div class="area-item">Sunnyvale</div><div class="area-item">Hayward</div><div class="area-item">Tracy</div><div class="area-item">Livermore</div><div class="area-item">Turlock</div>
+          <div class="area-item">San Jose</div>
+          <div class="area-item">San Francisco</div>
+          <div class="area-item">Oakland</div>
+          <div class="area-item">Fremont</div>
+          <div class="area-item">Modesto</div>
+          <div class="area-item">Stockton</div>
+          <div class="area-item">Santa Clara</div>
+          <div class="area-item">Sunnyvale</div>
+          <div class="area-item">Hayward</div>
+          <div class="area-item">Tracy</div>
+          <div class="area-item">Livermore</div>
+          <div class="area-item">Turlock</div>
         </div>
-        <div style="margin-top:24px;"><a href="#cta" class="btn-blue">Not on the list? Call us.</a></div>
+        <div style="margin-top:22px;"><a href="#cta" class="btn-blue">Not on the list? Call us.</a></div>
       </div>
-      <div class="areas-right reveal reveal-delay-2">
-        <img src="https://github.com/user-attachments/assets/66a19220-245b-4b64-b34b-e14b226f0c13" alt="Bay Area service">
+      <div class="areas-map reveal rd2">
+        <img src="https://github.com/user-attachments/assets/66a19220-245b-4b64-b34b-e14b226f0c13" alt="Bay Area">
         <div class="areas-overlay"><h3>BAY AREA + CENTRAL VALLEY</h3><p>California's Top Electrical Contractor</p></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="gallery-row">
+<!-- ══ GALLERY ══ -->
+<div class="gallery-strip">
   <img src="https://github.com/user-attachments/assets/eeb056a6-edb3-4308-bd98-157528a1c460" alt="Outdoor lighting">
   <img src="https://github.com/user-attachments/assets/01b580ec-c5e2-4b21-a1f7-801a9895bb2b" alt="Panel">
-  <img src="https://github.com/user-attachments/assets/4106da69-97a5-4c36-9a09-1ff28b73974c" alt="Interior lighting">
+  <img src="https://github.com/user-attachments/assets/4106da69-97a5-4c36-9a09-1ff28b73974c" alt="Interior">
   <img src="https://github.com/user-attachments/assets/a7d62c6a-c14d-48ed-a8d1-2886000a10f2" alt="Transformer">
 </div>
 
+<!-- ══ CTA ══ -->
 <section id="cta">
-  <div class="cta-bg-pattern"></div>
+  <div class="cta-pattern"></div>
   <div class="cta-glow"></div>
   <div class="container">
-    <div class="cta-content">
+    <div class="cta-inner">
       <div class="reveal">
         <h2>READY TO GET STARTED?</h2>
-        <p>Whether it's a panel upgrade, a rewire, an EV charger, or you need to source a 2,000 KVA transformer — we're the call to make. Free estimates on all residential work. Same-day response on transformer inquiries.</p>
-        <a href="mailto:info@dubelectrical.com" class="btn-gold" style="padding:14px 30px; font-size:14px;">Send Us a Message</a>
+        <p>Panel upgrade, rewire, EV charger, or a 2,000 KVA transformer — we're the call to make. Free estimates on all residential work. Same-day response on transformer inquiries.</p>
+        <a href="mailto:info@dubelectrical.com" class="btn-gold btn-gold-lg">Send Us a Message</a>
       </div>
-      <div class="cta-right reveal reveal-delay-2">
-        <div class="cta-phone-label">Bay Area Line</div>
+      <div class="cta-box reveal rd2">
+        <div class="cta-lbl">Bay Area</div>
         <a href="tel:+14085949884" class="cta-phone">(408) 594-9884</a>
-        <div style="font-size:11px; color:rgba(255,255,255,0.5); letter-spacing:0.08em; font-weight:600; text-transform:uppercase; margin:4px 0 4px;">Central Valley</div>
+        <div class="cta-lbl" style="margin-top:6px;">Central Valley</div>
         <a href="tel:+14086305231" class="cta-phone-sm">(408) 630-5231</a>
-        <a href="mailto:info@dubelectrical.com" style="font-size:13px; color:rgba(255,255,255,0.6); text-decoration:none; margin-top:4px;">info@dubelectrical.com</a>
-        <a href="#cta" class="btn-gold" style="margin-top:10px; padding:12px 28px; font-size:13px; width:100%; text-align:center; border-radius:var(--radius-pill);">Request Free Estimate</a>
+        <a href="mailto:info@dubelectrical.com" class="cta-email" style="margin-top:4px;">info@dubelectrical.com</a>
+        <a href="#cta" class="btn-gold btn-gold-lg" style="margin-top:14px;width:100%;text-align:center;">Free Estimate</a>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ══ FAQ ══ -->
 <section id="faq">
   <div class="container">
     <div class="faq-grid">
-      <div class="faq-left reveal">
+      <div class="reveal">
         <div class="section-label">FAQ</div>
         <h2 class="section-h2">QUESTIONS WE GET A LOT</h2>
-        <p>If you don't see your question here, just call us. We're not going to make you fill out a form to find out if we can help you.</p>
-        <div style="margin-top:28px; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow);">
-          <img src="https://github.com/user-attachments/assets/b76d8899-731f-496f-b4c1-89d058ea072e" alt="Electrician" style="width:100%; height:260px; object-fit:cover; object-position:top; display:block;">
+        <p>If you don't see your question here, just call us. We're not going to make you fill out a form to find out if we can help.</p>
+        <div style="margin-top:24px;border-radius:var(--rlg);overflow:hidden;box-shadow:var(--shadow);">
+          <img src="https://github.com/user-attachments/assets/b76d8899-731f-496f-b4c1-89d058ea072e" alt="Electrician" style="width:100%;height:240px;object-fit:cover;object-position:top;display:block;">
         </div>
       </div>
-      <div class="faq-items reveal reveal-delay-1">
+      <div class="faq-items reveal rd1">
         <div class="faq-item open">
-          <button class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">Do you supply transformers to individual buyers or only distributors?</span><span class="faq-toggle">+</span></button>
-          <div class="faq-answer"><div class="faq-answer-inner">Both. We're actively building relationships with distributors, but if you're a contractor, facility manager, or industrial buyer who needs a transformer directly, we can work with you. Contact us with your specs and we'll get you a quote.</div></div>
+          <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">Do you supply transformers to individual buyers?</span><span class="faq-toggle">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Both distributors and direct buyers. Contact us with your specs and we'll get you a quote.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">What KVA range can you source?</span><span class="faq-toggle">+</span></button>
-          <div class="faq-answer"><div class="faq-answer-inner">We source transformers from 1 KVA up to 5,000 KVA. Dry-type, oil-immersed, pad-mount, step-up/step-down — if you have a spec sheet, send it over and we'll confirm availability and lead time.</div></div>
+          <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">What KVA range can you source?</span><span class="faq-toggle">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">1 KVA up to 5,000 KVA. Dry-type, oil-immersed, pad-mount, step-up/step-down — send a spec sheet and we'll confirm availability.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">How do I know if I need a panel upgrade?</span><span class="faq-toggle">+</span></button>
-          <div class="faq-answer"><div class="faq-answer-inner">Common signs: breakers that trip frequently, lights that flicker when appliances run, a 60-amp or 100-amp panel in an older home, or you're adding EV charging. We'll come out and give you an honest assessment — no charge.</div></div>
+          <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">How do I know if I need a panel upgrade?</span><span class="faq-toggle">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Common signs: breakers trip frequently, lights flicker, old 60–100 amp panel, or adding EV charging. We'll assess for free.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">Are your electricians licensed and insured?</span><span class="faq-toggle">+</span></button>
-          <div class="faq-answer"><div class="faq-answer-inner">Yes. California Contractor License #1067437. We carry full liability insurance and workers' comp. You can verify our license on the CSLB website anytime.</div></div>
+          <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">Are your electricians licensed and insured?</span><span class="faq-toggle">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">Yes. California Contractor License #1067437. Full liability insurance and workers' comp. Verify anytime on CSLB.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">How long does a whole-house rewire take?</span><span class="faq-toggle">+</span></button>
-          <div class="faq-answer"><div class="faq-answer-inner">Depends on the size and condition of the home. A typical 3-bedroom takes 3–5 days. We'll give you a specific estimate after seeing the property with no surprises mid-job.</div></div>
+          <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">How long does a whole-house rewire take?</span><span class="faq-toggle">+</span></button>
+          <div class="faq-answer"><div class="faq-answer-inner">A typical 3-bedroom takes 3–5 days. We'll give a specific estimate after seeing the property.</div></div>
         </div>
         <div class="faq-item">
-          <button class="faq-question" onclick="toggleFaq(this)"><span class="faq-q-text">Do you do free estimates?</span><span class="faq-toggle">+</span></button>
+          <button class="faq-q" onclick="toggleFaq(this)"><span class="faq-q-txt">Do you do free estimates?</span><span class="faq-toggle">+</span></button>
           <div class="faq-answer"><div class="faq-answer-inner">Yes, on all residential electrical work. We come out, look at the job, and give you a written quote. No obligation.</div></div>
         </div>
       </div>
@@ -600,13 +1184,14 @@
   </div>
 </section>
 
+<!-- ══ FOOTER (same blue #2B6991 as nav) ══ -->
 <footer>
   <div class="container">
     <div class="footer-grid">
-      <div class="footer-brand">
+      <div class="footer-logo">
         <img src="https://github.com/user-attachments/assets/c11b0ca2-8a18-4d38-9970-59ca5faac5f7" alt="Witness Electrical LLC">
-        <p>Bay Area electrical contractors and transformer supply distributor. Licensed, insured, and actually reliable.</p>
-        <div class="footer-license">CA Lic. #1067437</div>
+        <p class="footer-about">Bay Area electrical contractors and transformer supply distributor. Licensed, insured, and actually reliable.</p>
+        <div class="footer-lic">CA Lic. #1067437</div>
       </div>
       <div class="footer-col">
         <h4>Services</h4>
@@ -623,49 +1208,72 @@
         <h4>Company</h4>
         <ul class="footer-links">
           <li><a href="#why">About Us</a></li>
+          <li><a href="#values">Our Values</a></li>
           <li><a href="#testimonials">Reviews</a></li>
           <li><a href="#process">Our Process</a></li>
           <li><a href="#areas">Service Areas</a></li>
           <li><a href="#faq">FAQ</a></li>
-          <li><a href="#cta">Contact</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Contact</h4>
-        <div class="footer-contact-items">
-          <div class="footer-contact-item"><span class="footer-contact-label">Bay Area</span><span class="footer-contact-value"><a href="tel:+14085949884">(408) 594-9884</a></span></div>
-          <div class="footer-contact-item"><span class="footer-contact-label">Central Valley</span><span class="footer-contact-value"><a href="tel:+14086305231">(408) 630-5231</a></span></div>
-          <div class="footer-contact-item"><span class="footer-contact-label">Email</span><span class="footer-contact-value"><a href="mailto:info@dubelectrical.com">info@dubelectrical.com</a></span></div>
-          <div class="footer-contact-item"><span class="footer-contact-label">Service Area</span><span class="footer-contact-value">Bay Area & Central Valley, CA</span></div>
+        <div class="footer-contacts">
+          <div class="fc-item"><span class="fc-lbl">Bay Area</span><span class="fc-val"><a href="tel:+14085949884">(408) 594-9884</a></span></div>
+          <div class="fc-item"><span class="fc-lbl">Central Valley</span><span class="fc-val"><a href="tel:+14086305231">(408) 630-5231</a></span></div>
+          <div class="fc-item"><span class="fc-lbl">Email</span><span class="fc-val"><a href="mailto:info@dubelectrical.com">info@dubelectrical.com</a></span></div>
+          <div class="fc-item"><span class="fc-lbl">Instagram</span><span class="fc-val"><a href="https://www.instagram.com/witnesseletrical/" target="_blank" rel="noopener">@witnesseletrical</a></span></div>
         </div>
       </div>
     </div>
     <div class="footer-bottom">
-      <span class="footer-copy">© 2026 Witness Electrical LLC. All rights reserved. Developed by Zuhú Graphic.</span>
-      <div class="footer-social"><a href="#" title="Instagram">IG</a><a href="tel:+14085949884" title="Call">📞</a></div>
+      <span class="footer-copy">© 2026 Witness Electrical LLC — Developed by Zuhú Graphic</span>
+      <div class="footer-social">
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/witnesseletrical/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        </a>
+        <!-- Phone -->
+        <a href="tel:+14085949884" aria-label="Call us">
+          <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        </a>
+      </div>
     </div>
   </div>
 </footer>
 
 <script>
-  const revealEls = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  revealEls.forEach(el => observer.observe(el));
-
-  function toggleFaq(btn) {
-    const item = btn.closest('.faq-item');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if (!isOpen) item.classList.add('open');
+  /* ── Hamburger ── */
+  const hamburger = document.getElementById('hamburger');
+  const drawer    = document.getElementById('drawer');
+  hamburger.addEventListener('click', () => {
+    const open = drawer.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  function closeDrawer() {
+    drawer.classList.remove('open');
+    hamburger.classList.remove('open');
+    document.body.style.overflow = '';
   }
 
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.style.background = window.scrollY > 60 ? 'rgba(255,255,255,0.98)' : 'rgba(255,255,255,0.94)';
-    navbar.style.boxShadow = window.scrollY > 60 ? '0 2px 24px rgba(43,105,145,0.14)' : '0 2px 16px rgba(43,105,145,0.08)';
-  });
+  /* ── Scroll reveal ── */
+  const revEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  revEls.forEach(el => io.observe(el));
+
+  /* ── FAQ ── */
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  }
+
+  /* ── Nav scroll ── */
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
 </script>
 </body>
 </html>
