@@ -43,7 +43,7 @@ body { background: var(--bg-base); color: var(--text-dark); font-family: 'Barlow
 ══════════════════════════════ */
 nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-  height: 68px;
+  height: 52px;
   background: var(--brand);
   border-bottom: 1px solid rgba(255,255,255,0.1);
   box-shadow: 0 2px 20px rgba(0,0,0,0.2);
@@ -61,7 +61,7 @@ nav.scrolled { background: var(--brand-dark); }
 
 /* Logo */
 .nav-logo { display: flex; align-items: center; flex-shrink: 0; }
-.nav-logo img { height: 38px; width: auto; object-fit: contain; }
+.nav-logo img { height: 30px; width: auto; object-fit: contain; }
 
 /* Desktop links — only 4 */
 .nav-links-desktop {
@@ -103,7 +103,7 @@ nav.scrolled { background: var(--brand-dark); }
 
 /* Mobile drawer */
 .nav-drawer {
-  position: fixed; top: 68px; left: 0; right: 0; bottom: 0;
+  position: fixed; top: 52px; left: 0; right: 0; bottom: 0;
   background: var(--brand-dark);
   z-index: 199;
   display: flex; flex-direction: column;
@@ -141,7 +141,7 @@ nav.scrolled { background: var(--brand-dark); }
 ══════════════════════════════ */
 .btn-gold {
   background: var(--gold); color: var(--text-dark);
-  padding: 11px 24px; font-size: 13px; font-weight: 700;
+  padding: 8px 18px; font-size: 12px; font-weight: 700;
   letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none;
   border: none; cursor: pointer; border-radius: var(--rpill);
   transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
@@ -174,7 +174,7 @@ nav.scrolled { background: var(--brand-dark); }
 ══════════════════════════════ */
 #hero {
   position: relative; min-height: 100vh;
-  display: flex; align-items: flex-end; overflow: hidden;
+  display: flex; align-items: center; overflow: hidden;
   background: var(--bg-darker);
 }
 .hero-bg {
@@ -191,7 +191,7 @@ nav.scrolled { background: var(--brand-dark); }
 }
 .hero-content {
   position: relative; z-index: 3;
-  padding: 140px 24px 80px;
+  padding: 72px 24px 80px;
   max-width: 1280px; margin: 0 auto; width: 100%;
   display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
 }
@@ -673,7 +673,7 @@ footer {
   .nav-hamburger { display:flex; }
 
   /* hero */
-  .hero-content { grid-template-columns:1fr; gap:0; padding:110px 20px 72px; }
+  .hero-content { grid-template-columns:1fr; gap:0; padding:84px 20px 72px; }
   .hero-right { display:none; }
   .hero-stats { gap:20px; flex-wrap:wrap; }
 
@@ -730,7 +730,7 @@ footer {
 ══════════════════════════════ */
 @media (max-width: 540px) {
   /* hero */
-  .hero-content { padding:100px 16px 60px; }
+  .hero-content { padding:76px 16px 60px; }
   .hero-h1 { font-size: clamp(48px, 13vw, 72px); }
   .hero-sub { font-size:15px; }
   .hero-actions { flex-direction:column; align-items:stretch; }
@@ -1128,14 +1128,14 @@ footer {
       <div class="reveal">
         <h2>READY TO GET STARTED?</h2>
         <p>Panel upgrade, rewire, EV charger, or a 2,000 KVA transformer — we're the call to make. Free estimates on all residential work. Same-day response on transformer inquiries.</p>
-        <a href="mailto:info@dubelectrical.com" class="btn-gold btn-gold-lg">Send Us a Message</a>
+        <a href="/cdn-cgi/l/email-protection#442d2a222b042031262128212730362d2725286a272b29" class="btn-gold btn-gold-lg">Send Us a Message</a>
       </div>
       <div class="cta-box reveal rd2">
         <div class="cta-lbl">Bay Area</div>
         <a href="tel:+14085949884" class="cta-phone">(408) 594-9884</a>
         <div class="cta-lbl" style="margin-top:6px;">Central Valley</div>
         <a href="tel:+14086305231" class="cta-phone-sm">(408) 630-5231</a>
-        <a href="mailto:info@dubelectrical.com" class="cta-email" style="margin-top:4px;">info@dubelectrical.com</a>
+        <a href="/cdn-cgi/l/email-protection#224b4c444d62465740474e474156504b41434e0c414d4f" class="cta-email" style="margin-top:4px;"><span class="__cf_email__" data-cfemail="c7aea9a1a887a3b2a5a2aba2a4b3b5aea4a6abe9a4a8aa">[email&#160;protected]</span></a>
         <a href="#cta" class="btn-gold btn-gold-lg" style="margin-top:14px;width:100%;text-align:center;">Free Estimate</a>
       </div>
     </div>
@@ -1220,7 +1220,7 @@ footer {
         <div class="footer-contacts">
           <div class="fc-item"><span class="fc-lbl">Bay Area</span><span class="fc-val"><a href="tel:+14085949884">(408) 594-9884</a></span></div>
           <div class="fc-item"><span class="fc-lbl">Central Valley</span><span class="fc-val"><a href="tel:+14086305231">(408) 630-5231</a></span></div>
-          <div class="fc-item"><span class="fc-lbl">Email</span><span class="fc-val"><a href="mailto:info@dubelectrical.com">info@dubelectrical.com</a></span></div>
+          <div class="fc-item"><span class="fc-lbl">Email</span><span class="fc-val"><a href="/cdn-cgi/l/email-protection#ddb4b3bbb29db9a8bfb8b1b8bea9afb4bebcb1f3beb2b0"><span class="__cf_email__" data-cfemail="0d64636b624d69786f6861686e797f646e6c61236e6260">[email&#160;protected]</span></a></span></div>
           <div class="fc-item"><span class="fc-lbl">Instagram</span><span class="fc-val"><a href="https://www.instagram.com/witnesseletrical/" target="_blank" rel="noopener">@witnesseletrical</a></span></div>
         </div>
       </div>
@@ -1241,7 +1241,7 @@ footer {
   </div>
 </footer>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   /* ── Hamburger ── */
   const hamburger = document.getElementById('hamburger');
   const drawer    = document.getElementById('drawer');
@@ -1264,16 +1264,4 @@ footer {
   revEls.forEach(el => io.observe(el));
 
   /* ── FAQ ── */
-  function toggleFaq(btn) {
-    const item = btn.closest('.faq-item');
-    const open = item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-    if (!open) item.classList.add('open');
-  }
-
-  /* ── Nav scroll ── */
-  const nav = document.getElementById('navbar');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 60));
-</script>
-</body>
-</html>
+  function toggleFaq(btn)
